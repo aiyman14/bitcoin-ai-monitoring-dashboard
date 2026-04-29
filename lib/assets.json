@@ -1,0 +1,29 @@
+[
+  {
+    "id": "BTC-USD",
+    "binanceSymbol": "BTCUSDT",
+    "yahooSymbol": "BTC-USD",
+    "displayName": "Bitcoin",
+    "accentColor": "#f7931a",
+    "enabled": true,
+    "tableauWorkbookUrl": ""
+  },
+  {
+    "id": "ETH-USD",
+    "binanceSymbol": "ETHUSDT",
+    "yahooSymbol": "ETH-USD",
+    "displayName": "Ethereum",
+    "accentColor": "#627eea",
+    "enabled": false,
+    "tableauWorkbookUrl": ""
+  },
+  {
+    "id": "SOL-USD",
+    "binanceSymbol": "SOLUSDT",
+    "yahooSymbol": "SOL-USD",
+    "displayName": "Solana",
+    "accentColor": "#9945ff",
+    "enabled": false,
+    "tableauWorkbookUrl": ""
+  }
+]
