@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-04-29T05:28:14Z",
+  "as_of": "2026-05-02T07:09:44Z",
   "asset": "BTC-USD",
   "asset_config": {
     "accent_color": "#f7931a",
@@ -13,5 +13,11 @@
   "direction": "unavailable",
   "model": "stub",
   "probability_up": null,
+  "regime": {
+    "label": "mid-volatility, range-bound",
+    "trend_label": "near its 24h average",
+    "volatility_percentile": 0.25257249766136575,
+    "window_hours": 24
+  },
   "test_f1": null
 }

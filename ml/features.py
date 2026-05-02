@@ -44,11 +44,17 @@ def build_features(frame: pd.DataFrame) -> pd.DataFrame:
     data["macd"] = data["ema_12"] - data["ema_26"]
     data["rsi_14"] = _rsi(data["close"], window=14)
 
-    data["dist_from_ma_24h"] = (data["close"] - data["rolling_mean_24h"]) / data["rolling_std_24h"].replace(0, np.nan)
-    data["volume_change_1h"] = data["volume"].pct_change()
+    data["dist_from_ma_24h"] = (data["close"] - data["rolling_mean_24h"]) / data[
+        "rolling_std_24h"
+    ].replace(0, np.nan)
+    data["volume_change_1h"] = (
+        data["volume"].pct_change().replace([np.inf, -np.inf], np.nan).fillna(0)
+    )
     volume_mean = data["volume"].rolling(window=24).mean()
-    volume_std = data["volume"].rolling(window=24).std().replace(0, np.nan)
-    data["volume_zscore_24h"] = (data["volume"] - volume_mean) / volume_std
+    volume_std = data["volume"].rolling(window=24).std()
+    data["volume_zscore_24h"] = (
+        (data["volume"] - volume_mean) / volume_std.replace(0, np.nan)
+    ).fillna(0)
 
     data["hour_of_day"] = data["open_time"].dt.hour
     data["day_of_week"] = data["open_time"].dt.dayofweek
@@ -63,4 +69,7 @@ def _rsi(close: pd.Series, window: int) -> pd.Series:
     avg_gain = gain.rolling(window=window).mean()
     avg_loss = loss.rolling(window=window).mean()
     rs = avg_gain / avg_loss.replace(0, np.nan)
-    return 100 - (100 / (1 + rs))
+    rsi = 100 - (100 / (1 + rs))
+    rsi = rsi.mask((avg_loss == 0) & (avg_gain > 0), 100)
+    rsi = rsi.mask((avg_gain == 0) & (avg_loss > 0), 0)
+    return rsi.mask((avg_gain == 0) & (avg_loss == 0), 50)
