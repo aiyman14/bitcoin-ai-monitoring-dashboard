@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-05-10T23:00:00Z",
+  "as_of": "2026-05-14T23:00:00Z",
   "asset": "BTC-USD",
   "asset_config": {
     "accent_color": "#f7931a",
@@ -14,9 +14,9 @@
   "model": "stub",
   "probability_up": null,
   "regime": {
-    "label": "mid-volatility, upward-tilted",
+    "label": "high-volatility, upward-tilted",
     "trend_label": "above its 24h average",
-    "volatility_percentile": 0.6827943929239958,
+    "volatility_percentile": 0.9102298834172862,
     "window_hours": 24
   },
   "test_f1": null

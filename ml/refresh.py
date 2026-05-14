@@ -18,6 +18,13 @@ from .features import build_features
 from .pattern import find_similar_windows
 from .signal import score_latest
 
+PATTERN_WINDOWS = {
+    "12h": {"source": "hourly", "window_hours": 12},
+    "24h": {"source": "hourly", "window_hours": 24},
+    "72h": {"source": "hourly", "window_hours": 72},
+    "168h": {"source": "daily", "window_hours": 168},
+}
+
 
 def refresh_asset(
     asset: AssetConfig, repo_root: Path, lookback_hours: int = 24 * 30
@@ -35,14 +42,23 @@ def refresh_asset(
     daily = _merge_ohlcv(daily_path, latest_daily)
     daily.to_parquet(daily_path, index=False)
 
-    featured = build_features(hourly)
-    pattern = find_similar_windows(featured, asset)
-    signal = score_latest(featured, asset, repo_root=repo_root)
+    hourly_featured = build_features(hourly)
+    daily_featured = build_features(daily)
+    signal = score_latest(hourly_featured, asset, repo_root=repo_root)
 
-    _write_json(asset_dir / "pattern_top_k.json", pattern)
+    for label, config in PATTERN_WINDOWS.items():
+        source_frame = (
+            hourly_featured if config["source"] == "hourly" else daily_featured
+        )
+        pattern = find_similar_windows(
+            source_frame, asset, window_hours=config["window_hours"]
+        )
+        _write_json(asset_dir / f"pattern_top_k_{label}.json", pattern)
+
+    (asset_dir / "pattern_top_k.json").unlink(missing_ok=True)
     _write_json(asset_dir / "signal.json", signal)
-    featured.tail(24 * 90).to_csv(asset_dir / "tableau_extract.csv", index=False)
-    featured.tail(24 * 90).to_csv(asset_dir / "tableau_recent.csv", index=False)
+    hourly_featured.tail(24 * 90).to_csv(asset_dir / "tableau_extract.csv", index=False)
+    hourly_featured.tail(24 * 90).to_csv(asset_dir / "tableau_recent.csv", index=False)
     daily.to_csv(asset_dir / "tableau_long.csv", index=False)
 
 
