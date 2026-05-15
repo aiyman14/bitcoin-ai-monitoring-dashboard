@@ -24,17 +24,18 @@ export default async function Home() {
 	const price = summarizePrice(hourlyRows);
 	const defaultPattern = patterns["24h"] ?? Object.values(patterns)[0] ?? null;
 	const asOf = defaultPattern?.as_of ?? price?.asOf ?? null;
+	const description = `A tool that focuses on pattern recognition, not prediction. It compares today's ${asset.displayName} market patterns to similar moments in the past and shows what historically followed — as a range, not a guarantee.`;
 
 	return (
 		<main className="mx-auto flex min-h-screen max-w-[1200px] flex-col gap-10 px-4 py-6 text-surface-700 sm:px-6 lg:px-8 lg:py-10">
 			<header className="flex flex-col gap-5 rounded-xl border border-surface-200 bg-gradient-to-br from-bitcoin-50/70 via-white to-white p-6 md:flex-row md:items-end md:justify-between">
-				<div>
-					<p className="text-[13px] font-medium text-surface-700">
-						Pattern recognition with measured ranges.
-					</p>
+				<div className="max-w-3xl">
 					<h1 className="mt-2 text-4xl font-semibold tracking-normal text-surface-900 md:text-5xl">
-						{asset.displayName} Market Monitor - A Responsible AI Dashboard
+						{asset.displayName} Market Monitor
 					</h1>
+					<p className="mt-4 text-base leading-relaxed text-surface-700">
+						{description}
+					</p>
 					{asOf ? (
 						<p className="mt-3 text-[13px] font-medium text-surface-700">
 							As of {formatDateTime(asOf)}
@@ -55,17 +56,37 @@ export default async function Home() {
 				</div>
 			</header>
 
+			<PriceCallout asset={asset} price={price} />
+
+			<TableauEmbed
+				asset={asset}
+				caption="What this tells you: Long history frames the current moment."
+				title={`${asset.displayName}'s price since 2014`}
+			/>
+
+			<TableauEmbed
+				asset={asset}
+				caption="What this tells you: Typical daily moves set useful context."
+				title={`A normal day in ${asset.displayName}`}
+			/>
+
+			<TableauEmbed
+				asset={asset}
+				caption="What this tells you: Recent movement connects to the match window."
+				title="Where the market is right now"
+			/>
+
 			<Suspense
 				fallback={
 					<div className="rounded-xl border border-surface-200 bg-white p-6" />
 				}
 			>
-				<PatternDashboard asset={asset} patterns={patterns} />
+				<PatternDashboard
+					asset={asset}
+					disclaimer={DISCLAIMER}
+					patterns={patterns}
+				/>
 			</Suspense>
-
-			<PriceCallout asset={asset} price={price} />
-
-			<TableauEmbed asset={asset} />
 		</main>
 	);
 }

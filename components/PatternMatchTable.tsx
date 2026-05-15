@@ -20,10 +20,10 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 				Historical similarity
 			</p>
 			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
-				{asset.displayName} similar-window matches
+				Past {asset.displayName} windows ranked by resemblance
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				How to read this: Lower distance means closer historical shape.
+				What this tells you: Closest historical shapes, ranked first.
 			</p>
 			{summary ? (
 				<p className="mt-4 text-sm leading-6 text-surface-700">

@@ -32,7 +32,7 @@ export function PriceCallout({ asset, price }: PriceCalloutProps) {
 				{asset.displayName} price context
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				How to read this: Tracks latest close and one-day move.
+				What this tells you: Latest close and 24h movement.
 			</p>
 			{price ? (
 				<div className="mt-5">

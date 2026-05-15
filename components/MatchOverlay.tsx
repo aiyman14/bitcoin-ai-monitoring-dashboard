@@ -56,12 +56,12 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 				Pattern overlay
 			</p>
 			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
-				The current shape sits inside a wider historical range
+				Today's shape against the past windows that look most like it
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				Each gray line is one of the {pattern?.k ?? 0} most similar past
-				windows; the orange line is now. All lines start at 0% to compare
-				shapes.
+				Each gray line is one of the {pattern?.k ?? 0} past windows that most
+				resembled today; the orange line is today. All lines start at 0% so
+				shapes — not prices — can be compared.
 			</p>
 
 			{hasSeries ? (

@@ -37,7 +37,7 @@ export function ExplanationPanel({ asset, pattern }: ExplanationPanelProps) {
 				{asset.displayName} monitoring snapshot
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				How to read this: Use ranges as context, not instructions.
+				What this tells you: Historical context, not a prediction.
 			</p>
 			<p className="mt-5 tabular-nums">
 				Over {windowLabel} of {asset.displayName} trading, market conditions

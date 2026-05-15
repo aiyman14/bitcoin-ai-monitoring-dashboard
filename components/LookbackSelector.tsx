@@ -34,6 +34,9 @@ export function LookbackSelector({ activeLookback }: LookbackSelectorProps) {
 			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
 				Lookback window
 			</p>
+			<p className="mt-1 text-[13px] font-medium text-surface-700">
+				What this tells you: Switch the comparison window.
+			</p>
 			<div className="mt-3 flex flex-wrap gap-2">
 				{LOOKBACK_OPTIONS.map((option) => {
 					const selected = option.value === activeLookback;
