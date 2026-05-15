@@ -60,7 +60,8 @@ export default async function Home() {
 
 			<TableauEmbed
 				asset={asset}
-				caption="What this tells you: Long history frames the current moment."
+				caption="What this tells you: The long arc Bitcoin has lived through, with every boom and crash visible."
+				description={`Every point on this orange shape is one day of ${asset.displayName} trading since September 17, 2014. The vertical axis is spaced so the early years (when ${asset.displayName} was around $300) and the recent years (above $100,000) are both clearly readable. On a regular axis the early years would compress into a flat line at the bottom. Drag the slider on the right side to zoom into any specific period, like the 2021 peak, the 2022 crash, or the 2024 ETF rally. ${asset.displayName} has gone through multiple boom and crash cycles, and seeing that full history gives you a feel for the kinds of past moments the pattern recognition below is comparing today's market to.`}
 				title={`${asset.displayName}'s price since 2014`}
 			/>
 

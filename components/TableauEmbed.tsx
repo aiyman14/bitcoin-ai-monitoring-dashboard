@@ -3,6 +3,7 @@ import type { AssetConfig } from "@/lib/assets";
 type TableauEmbedProps = {
 	asset: AssetConfig;
 	caption?: string;
+	description?: string;
 	title?: string;
 };
 
@@ -14,7 +15,12 @@ function buildEmbedUrl(rawUrl: string): string {
 	return `${trimmed}${separator}${EMBED_PARAMS}`;
 }
 
-export function TableauEmbed({ asset, caption, title }: TableauEmbedProps) {
+export function TableauEmbed({
+	asset,
+	caption,
+	description,
+	title,
+}: TableauEmbedProps) {
 	const workbookUrl = asset.tableauWorkbookUrl?.trim();
 	const embedUrl = workbookUrl ? buildEmbedUrl(workbookUrl) : null;
 	const panelTitle = title ?? `${asset.displayName} market view`;
@@ -40,6 +46,11 @@ export function TableauEmbed({ asset, caption, title }: TableauEmbedProps) {
 					Visual coming soon
 				</p>
 			)}
+			{description ? (
+				<p className="mt-5 text-sm leading-7 text-surface-700">
+					{description}
+				</p>
+			) : null}
 		</section>
 	);
 }
