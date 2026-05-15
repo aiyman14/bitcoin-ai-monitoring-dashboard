@@ -44,6 +44,9 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 	const hasSeries = chartData.length > 0 && currentSeriesLength > 0;
 	const highlightedDate =
 		highlightedMatch === null ? null : matches[highlightedMatch]?.match_start;
+	const isDailyFrame = pattern?.source_interval_hours === 24;
+	const stepLabel = isDailyFrame ? "Day" : "Hour";
+	const xAxisLabel = isDailyFrame ? "Days into window" : "Hours into window";
 
 	return (
 		<section
@@ -63,7 +66,7 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 				resembled today; the orange line is today.
 			</p>
 			<p className="mt-2 text-[13px] leading-5 text-surface-700">
-				Each line shows the percentage move from the start of its window —
+				Each line shows the percentage move from the start of its window,
 				not the dollar price. Aligning them all at 0% strips out the
 				difference between, say, {asset.displayName} around $30,000 and{" "}
 				{asset.displayName} around $90,000, so you can compare how the
@@ -93,7 +96,7 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 									label={{
 										offset: -2,
 										position: "insideBottom",
-										value: "t",
+										value: xAxisLabel,
 									}}
 									stroke={SURFACE_700}
 									tick={{ fontSize: 12 }}
@@ -111,7 +114,7 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 										formatTooltipValue(value),
 										formatTooltipName(name, matches),
 									]}
-									labelFormatter={(label) => `t = ${label}`}
+									labelFormatter={(label) => `${stepLabel} ${label}`}
 								/>
 								{matches.map((match, index) => {
 									const isHighlighted = highlightedMatch === index;

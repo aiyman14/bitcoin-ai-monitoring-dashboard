@@ -30,7 +30,9 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 					The {pattern?.k ?? 0} closest windows were followed by {horizon}{" "}
 					returns from {formatSignedPercent(summary.p10)} to{" "}
 					{formatSignedPercent(summary.p90)}, with a median of{" "}
-					{formatSignedPercent(summary.median)}.
+					{formatSignedPercent(summary.median)}. The Distance column below
+					is a score that measures how different each past window's shape
+					was from today's: smaller numbers mean a closer match.
 				</p>
 			) : (
 				<p className="mt-4 text-sm leading-6 text-surface-700">

@@ -24,7 +24,7 @@ export default async function Home() {
 	const price = summarizePrice(hourlyRows);
 	const defaultPattern = patterns["24h"] ?? Object.values(patterns)[0] ?? null;
 	const asOf = defaultPattern?.as_of ?? price?.asOf ?? null;
-	const description = `A tool that focuses on pattern recognition, not prediction. It gives users more context for what ${asset.displayName} is doing right now by comparing today's market patterns to similar moments in the past — because past patterns can tell a story about what could happen next, shown as a range, not a guarantee.`;
+	const description = `A dashboard built to help you make sense of what ${asset.displayName} is doing right now. Instead of trying to predict where the market is going, it compares today's patterns to similar moments in the past and shows you what tended to happen afterward, so you can interpret today's market with real historical context.`;
 
 	return (
 		<main className="mx-auto flex min-h-screen max-w-[1200px] flex-col gap-10 px-4 py-6 text-surface-700 sm:px-6 lg:px-8 lg:py-10">

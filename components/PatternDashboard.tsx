@@ -39,16 +39,21 @@ export function PatternDashboard({
 
 	return (
 		<>
+			<ExplanationPanel asset={asset} pattern={activePattern} />
+			<LookbackSelector activeLookback={activeLookback} />
+			<MatchOverlay asset={asset} pattern={activePattern} />
+
 			<details className="group [&_summary::-webkit-details-marker]:hidden">
 				<summary className="cursor-pointer list-none rounded-xl border border-surface-200 bg-white p-6 transition hover:border-bitcoin-100 hover:bg-bitcoin-50/30">
 					<div className="flex items-start justify-between gap-4">
 						<div>
 							<h2 className="text-2xl font-semibold tracking-normal text-surface-900">
-								Historical similarity
+								Historical similarity details
 							</h2>
 							<p className="mt-1 text-[13px] font-medium leading-5 text-surface-700">
-								Click to see the past windows that look most similar to today,
-								and what historically followed.
+								Click to open the full ranked table of every matched past
+								window, its distance score, and what followed at each
+								horizon.
 							</p>
 						</div>
 						<span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-surface-200 text-surface-700">
@@ -63,10 +68,7 @@ export function PatternDashboard({
 						</span>
 					</div>
 				</summary>
-				<div className="mt-4 flex flex-col gap-6">
-					<ExplanationPanel asset={asset} pattern={activePattern} />
-					<LookbackSelector activeLookback={activeLookback} />
-					<MatchOverlay asset={asset} pattern={activePattern} />
+				<div className="mt-4">
 					<PatternMatchTable asset={asset} pattern={activePattern} />
 				</div>
 			</details>
