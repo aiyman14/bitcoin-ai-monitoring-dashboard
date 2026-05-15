@@ -1,45 +1,32 @@
 import type { AssetConfig } from "@/lib/assets";
-import type { PatternArtifact, SignalArtifact } from "@/lib/data";
-import {
-	formatDate,
-	formatProbability,
-	formatSignedPercent,
-} from "@/lib/format";
+import type { HorizonLabel, PatternArtifact } from "@/lib/patterns";
+import { formatDate, formatSignedPercent } from "@/lib/format";
 
 type ExplanationPanelProps = {
 	asset: AssetConfig;
 	pattern: PatternArtifact | null;
-	signal: SignalArtifact | null;
 };
 
-const HORIZON_HOURS = 72;
-
-export function ExplanationPanel({
-	asset,
-	pattern,
-	signal,
-}: ExplanationPanelProps) {
+export function ExplanationPanel({ asset, pattern }: ExplanationPanelProps) {
 	const matches = pattern?.matches ?? [];
-	const summary = pattern?.summary.horizon_72h ?? null;
+	const horizon = pattern
+		? pattern.horizons[pattern.horizons.length - 1]
+		: null;
+	const summary = horizon ? pattern?.summary[`horizon_${horizon}`] : null;
 	const dates = matches.map((match) => match.match_start).sort();
 	const firstMatchDate = dates[0] ? formatDate(dates[0]) : "unavailable";
 	const lastMatchDate = dates[dates.length - 1]
 		? formatDate(dates[dates.length - 1])
 		: "unavailable";
-	const regime = signal?.regime;
-	const volatility =
-		regime?.volatility_percentile === null || regime === undefined
-			? "unavailable"
-			: `${Math.round(regime.volatility_percentile * 100)}th`;
-	const trend = regime?.trend_label ?? "unavailable";
 	const rangeStart = summary ? formatSignedPercent(summary.p10) : "unavailable";
 	const rangeEnd = summary ? formatSignedPercent(summary.p90) : "unavailable";
 	const median = summary ? formatSignedPercent(summary.median) : "unavailable";
-	const direction = signal?.direction ?? "unavailable";
-	const f1 =
-		signal?.test_f1 === null || signal === null
-			? "unavailable"
-			: signal.test_f1.toFixed(2);
+	const windowLabel = pattern
+		? formatWindowLabel(pattern.window_hours)
+		: "the selected window";
+	const horizonLabel = horizon
+		? formatHorizonLabel(horizon, pattern?.source_interval_hours ?? 1)
+		: "the next period";
 
 	return (
 		<section className="rounded-md border border-border bg-white p-5 text-base leading-7">
@@ -53,16 +40,45 @@ export function ExplanationPanel({
 				How to read this: Use ranges as context, not instructions.
 			</p>
 			<p className="mt-5">
-				Conditions over the last {regime?.window_hours ?? 24}h look{" "}
-				{regime?.label ?? "unclassified"} (volatility {volatility} percentile,
-				trend {trend}). The {pattern?.k ?? 0} most similar past windows occurred
-				between {firstMatchDate} and {lastMatchDate}. Over the {HORIZON_HOURS}h
-				that followed those windows, returns ranged from {rangeStart} to{" "}
-				{rangeEnd} with a median of {median}. Today's hourly direction model
-				leans {direction} (probability{" "}
-				{formatProbability(signal?.probability_up ?? null)}, F1 {f1}). This is a
-				monitoring snapshot, not guidance.
+				Over {windowLabel} of {asset.displayName} trading, market conditions
+				look most similar to {pattern?.k ?? 0} past windows between{" "}
+				{firstMatchDate} and {lastMatchDate}. In {horizonLabel} that followed
+				those windows, prices moved by anywhere from {rangeStart} to {rangeEnd},
+				with a typical move of {median}. This is a monitoring snapshot built
+				from historical pattern matching, not guidance.
 			</p>
 		</section>
 	);
+}
+
+function formatWindowLabel(windowHours: number): string {
+	if (windowHours === 168) {
+		return "the last week";
+	}
+	if (windowHours % 24 === 0) {
+		const days = windowHours / 24;
+		return days === 1 ? "the last day" : `the last ${days} days`;
+	}
+	return `the last ${windowHours} hours`;
+}
+
+function formatHorizonLabel(
+	horizon: HorizonLabel,
+	sourceIntervalHours: number,
+): string {
+	const hours = horizonToHours(horizon);
+	if (sourceIntervalHours === 24 && hours % 24 === 0) {
+		const days = hours / 24;
+		return days === 1 ? "the day" : `the ${days} days`;
+	}
+	if (hours % 24 === 0) {
+		const days = hours / 24;
+		return days === 1 ? "the day" : `the ${days} days`;
+	}
+	return `the ${hours} hours`;
+}
+
+function horizonToHours(horizon: HorizonLabel): number {
+	const value = Number.parseInt(horizon, 10);
+	return horizon.endsWith("d") ? value * 24 : value;
 }

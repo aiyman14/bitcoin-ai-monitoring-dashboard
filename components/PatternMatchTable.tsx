@@ -1,5 +1,5 @@
 import type { AssetConfig } from "@/lib/assets";
-import type { PatternArtifact } from "@/lib/data";
+import type { PatternArtifact } from "@/lib/patterns";
 import { formatDate, formatNumber, formatSignedPercent } from "@/lib/format";
 
 type PatternMatchTableProps = {
@@ -8,7 +8,11 @@ type PatternMatchTableProps = {
 };
 
 export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
-	const summary = pattern?.summary.horizon_72h ?? null;
+	const horizon = pattern
+		? pattern.horizons[pattern.horizons.length - 1]
+		: null;
+	const summary = horizon ? pattern?.summary[`horizon_${horizon}`] : null;
+	const horizons = pattern?.horizons ?? [];
 
 	return (
 		<section className="rounded-md border border-border bg-white p-5">
@@ -23,8 +27,8 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 			</p>
 			{summary ? (
 				<p className="mt-4 text-sm text-muted">
-					The {pattern?.k ?? 0} closest windows were followed by 72h returns
-					from {formatSignedPercent(summary.p10)} to{" "}
+					The {pattern?.k ?? 0} closest windows were followed by {horizon}{" "}
+					returns from {formatSignedPercent(summary.p10)} to{" "}
 					{formatSignedPercent(summary.p90)}, with a median of{" "}
 					{formatSignedPercent(summary.median)}.
 				</p>
@@ -40,9 +44,11 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 							<tr className="border-b border-border">
 								<th className="py-3 pr-4 font-medium">Match start</th>
 								<th className="py-3 pr-4 font-medium">Distance</th>
-								<th className="py-3 pr-4 font-medium">1h return</th>
-								<th className="py-3 pr-4 font-medium">24h return</th>
-								<th className="py-3 pr-4 font-medium">72h return</th>
+								{horizons.map((label) => (
+									<th className="py-3 pr-4 font-medium" key={label}>
+										{label} return
+									</th>
+								))}
 							</tr>
 						</thead>
 						<tbody>
@@ -55,15 +61,11 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 									<td className="py-3 pr-4">
 										{formatNumber(match.distance, 3)}
 									</td>
-									<td className="py-3 pr-4">
-										{formatSignedPercent(match.forward_returns["1h"])}
-									</td>
-									<td className="py-3 pr-4">
-										{formatSignedPercent(match.forward_returns["24h"])}
-									</td>
-									<td className="py-3 pr-4">
-										{formatSignedPercent(match.forward_returns["72h"])}
-									</td>
+									{horizons.map((label) => (
+										<td className="py-3 pr-4" key={label}>
+											{formatReturn(match.forward_returns[label])}
+										</td>
+									))}
 								</tr>
 							))}
 						</tbody>
@@ -72,4 +74,8 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 			) : null}
 		</section>
 	);
+}
+
+function formatReturn(value: number | undefined): string {
+	return value === undefined ? "n/a" : formatSignedPercent(value);
 }

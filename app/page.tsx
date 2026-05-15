@@ -1,14 +1,13 @@
 import { ASSETS } from "@/lib/assets";
 import {
 	readHourlyRows,
-	readPatternArtifact,
+	readPatternArtifacts,
 	readSignalArtifact,
 	summarizePrice,
 } from "@/lib/data";
 import { formatDateTime } from "@/lib/format";
 import { AssetSelector } from "@/components/AssetSelector";
-import { ExplanationPanel } from "@/components/ExplanationPanel";
-import { PatternMatchTable } from "@/components/PatternMatchTable";
+import { PatternDashboard } from "@/components/PatternDashboard";
 import { PriceCallout } from "@/components/PriceCallout";
 import { SignalCallout } from "@/components/SignalCallout";
 import { TableauEmbed } from "@/components/TableauEmbed";
@@ -20,13 +19,14 @@ const DISCLAIMER =
 export default async function Home() {
 	const enabledAssets = ASSETS.filter((asset) => asset.enabled);
 	const asset = enabledAssets[0] ?? ASSETS[0];
-	const [pattern, signal, hourlyRows] = await Promise.all([
-		readPatternArtifact(asset),
+	const [patterns, signal, hourlyRows] = await Promise.all([
+		readPatternArtifacts(asset),
 		readSignalArtifact(asset),
 		readHourlyRows(asset),
 	]);
 	const price = summarizePrice(hourlyRows);
-	const asOf = pattern?.as_of ?? signal?.as_of ?? price?.asOf ?? null;
+	const defaultPattern = patterns["24h"] ?? Object.values(patterns)[0] ?? null;
+	const asOf = defaultPattern?.as_of ?? signal?.as_of ?? price?.asOf ?? null;
 
 	return (
 		<main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-6 py-8">
@@ -58,7 +58,13 @@ export default async function Home() {
 				</div>
 			</header>
 
-			<ExplanationPanel asset={asset} pattern={pattern} signal={signal} />
+			<Suspense
+				fallback={
+					<div className="rounded-md border border-border bg-white p-5" />
+				}
+			>
+				<PatternDashboard asset={asset} patterns={patterns} />
+			</Suspense>
 
 			<section className="grid gap-5 md:grid-cols-2">
 				<PriceCallout asset={asset} price={price} />
@@ -66,8 +72,6 @@ export default async function Home() {
 			</section>
 
 			<TableauEmbed asset={asset} />
-
-			<PatternMatchTable asset={asset} pattern={pattern} />
 		</main>
 	);
 }

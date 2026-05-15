@@ -2,30 +2,12 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { asyncBufferFromFile, parquetReadObjects } from "hyparquet";
 import type { AssetConfig } from "./assets";
-
-export type HorizonLabel = "1h" | "24h" | "72h" | "168h";
-
-export type PatternSummary = {
-	mean: number;
-	median: number;
-	n_positive: number;
-	p10: number;
-	p90: number;
-};
-
-export type PatternMatch = {
-	distance: number;
-	forward_returns: Record<HorizonLabel, number>;
-	match_start: string;
-};
-
-export type PatternArtifact = {
-	as_of: string | null;
-	asset: string;
-	k: number;
-	matches: PatternMatch[];
-	summary: Partial<Record<`horizon_${HorizonLabel}`, PatternSummary>>;
-};
+import {
+	LOOKBACK_OPTIONS,
+	type LookbackLabel,
+	type PatternArtifact,
+	type PatternArtifactsByLookback,
+} from "./patterns";
 
 export type SignalRegime = {
 	label: string;
@@ -80,7 +62,26 @@ export async function readAssetJson<T>(
 export function readPatternArtifact(
 	asset: AssetConfig,
 ): Promise<PatternArtifact | null> {
-	return readAssetJson<PatternArtifact>(asset, "pattern_top_k.json");
+	return readAssetJson<PatternArtifact>(asset, "pattern_top_k_24h.json");
+}
+
+export async function readPatternArtifacts(
+	asset: AssetConfig,
+): Promise<PatternArtifactsByLookback> {
+	const entries = await Promise.all(
+		LOOKBACK_OPTIONS.map(async ({ value }) => [
+			value,
+			await readAssetJson<PatternArtifact>(
+				asset,
+				`pattern_top_k_${value}.json`,
+			),
+		]),
+	);
+	return Object.fromEntries(
+		entries.filter((entry): entry is [LookbackLabel, PatternArtifact] => {
+			return entry[1] !== null;
+		}),
+	);
 }
 
 export function readSignalArtifact(
