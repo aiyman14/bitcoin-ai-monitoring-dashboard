@@ -10,6 +10,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import { ExplanationPanel } from "./ExplanationPanel";
 import { LookbackSelector } from "./LookbackSelector";
+import { MatchOverlay } from "./MatchOverlay";
 import { PatternMatchTable } from "./PatternMatchTable";
 
 type PatternDashboardProps = {
@@ -30,6 +31,7 @@ export function PatternDashboard({ asset, patterns }: PatternDashboardProps) {
 		<>
 			<ExplanationPanel asset={asset} pattern={activePattern} />
 			<LookbackSelector activeLookback={activeLookback} />
+			<MatchOverlay asset={asset} pattern={activePattern} />
 			<PatternMatchTable asset={asset} pattern={activePattern} />
 		</>
 	);
