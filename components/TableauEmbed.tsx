@@ -5,6 +5,7 @@ type TableauEmbedProps = {
 	caption?: string;
 	description?: string;
 	title?: string;
+	workbookUrl?: string;
 };
 
 const EMBED_PARAMS = ":embed=y&:display_count=no&:showVizHome=no";
@@ -20,9 +21,11 @@ export function TableauEmbed({
 	caption,
 	description,
 	title,
+	workbookUrl,
 }: TableauEmbedProps) {
-	const workbookUrl = asset.tableauWorkbookUrl?.trim();
-	const embedUrl = workbookUrl ? buildEmbedUrl(workbookUrl) : null;
+	const resolvedUrl =
+		workbookUrl?.trim() || asset.tableauWorkbookUrl?.trim() || "";
+	const embedUrl = resolvedUrl ? buildEmbedUrl(resolvedUrl) : null;
 	const panelTitle = title ?? `${asset.displayName} market view`;
 	const panelCaption =
 		caption ?? "What this tells you: Visual market context, held in Tableau.";

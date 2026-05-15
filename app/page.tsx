@@ -63,18 +63,22 @@ export default async function Home() {
 				caption="What this tells you: The long arc Bitcoin has lived through, with every boom and crash visible."
 				description={`Every point on this orange shape is one day of ${asset.displayName} trading since September 17, 2014. The vertical axis is spaced so the early years (when ${asset.displayName} was around $300) and the recent years (above $100,000) are both clearly readable. On a regular axis the early years would compress into a flat line at the bottom. Drag the slider on the right side to zoom into any specific period, like the 2021 peak, the 2022 crash, or the 2024 ETF rally. ${asset.displayName} has gone through multiple boom and crash cycles, and seeing that full history gives you a feel for the kinds of past moments the pattern recognition below is comparing today's market to.`}
 				title={`${asset.displayName}'s price since 2014`}
+				workbookUrl={asset.tableauWorkbookUrls?.long}
 			/>
 
 			<TableauEmbed
 				asset={asset}
-				caption="What this tells you: Typical daily moves set useful context."
+				caption="What this tells you: How big a normal Bitcoin day actually is, so you can tell when today is unusual."
+				description={`Each bar in this chart represents a 1% slice of how much ${asset.displayName} moved on a given day. The horizontal axis is the size of the daily move, from steep drops on the left to big jumps on the right. The vertical axis counts how many days in ${asset.displayName}'s history fell into each slice. The tallest bars sit close to 0%, which tells you most ${asset.displayName} days are actually small moves, while rare extreme days like the lonely bar near -40% (the March 2020 COVID crash) sit alone in the tails. Drag the slider on the right to compare different eras, since a normal day in 2024 may look very different from a normal day in 2018. Calibrating what counts as a normal ${asset.displayName} day helps you read the recent ones with the right expectations before the pattern recognition tries to match today against history.`}
 				title={`A normal day in ${asset.displayName}`}
+				workbookUrl={asset.tableauWorkbookUrls?.histogram}
 			/>
 
 			<TableauEmbed
 				asset={asset}
 				caption="What this tells you: Recent movement connects to the match window."
 				title="Where the market is right now"
+				workbookUrl={asset.tableauWorkbookUrls?.zoom}
 			/>
 
 			<Suspense

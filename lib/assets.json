@@ -6,7 +6,12 @@
     "displayName": "Bitcoin",
     "accentColor": "#f7931a",
     "enabled": true,
-    "tableauWorkbookUrl": "https://public.tableau.com/views/BitcoinPriceSince2014/BTCPriceSince2014"
+    "tableauWorkbookUrl": "https://public.tableau.com/views/BitcoinPriceSince2014/BTCPriceSince2014",
+    "tableauWorkbookUrls": {
+      "long": "https://public.tableau.com/views/BitcoinPriceSince2014/BTCPriceSince2014",
+      "histogram": "https://public.tableau.com/views/BitcoinPriceSince2014/ANormalDayinBTC",
+      "zoom": ""
+    }
   },
   {
     "id": "ETH-USD",
