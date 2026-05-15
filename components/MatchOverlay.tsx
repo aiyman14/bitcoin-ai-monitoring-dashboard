@@ -60,8 +60,14 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
 				Each gray line is one of the {pattern?.k ?? 0} past windows that most
-				resembled today; the orange line is today. All lines start at 0% so
-				shapes — not prices — can be compared.
+				resembled today; the orange line is today.
+			</p>
+			<p className="mt-2 text-[13px] leading-5 text-surface-700">
+				Each line shows the percentage move from the start of its window —
+				not the dollar price. Aligning them all at 0% strips out the
+				difference between, say, {asset.displayName} around $30,000 and{" "}
+				{asset.displayName} around $90,000, so you can compare how the
+				shapes moved rather than how much money was involved.
 			</p>
 
 			{hasSeries ? (

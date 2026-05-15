@@ -23,10 +23,7 @@ export function TableauEmbed({ asset, caption, title }: TableauEmbedProps) {
 
 	return (
 		<section className="rounded-xl border border-surface-200 bg-white p-6">
-			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
-				Tableau workbook
-			</p>
-			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
+			<h2 className="text-2xl font-semibold tracking-normal text-surface-900">
 				{panelTitle}
 			</h2>
 			<p className="mt-1 text-[13px] font-medium text-surface-700">
@@ -40,7 +37,7 @@ export function TableauEmbed({ asset, caption, title }: TableauEmbedProps) {
 				/>
 			) : (
 				<p className="mt-5 text-sm leading-6 text-surface-700">
-					Tableau workbook coming soon
+					Visual coming soon
 				</p>
 			)}
 		</section>
