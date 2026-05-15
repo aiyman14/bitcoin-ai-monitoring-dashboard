@@ -17,24 +17,26 @@ export function TableauEmbed({ asset }: TableauEmbedProps) {
 	const embedUrl = workbookUrl ? buildEmbedUrl(workbookUrl) : null;
 
 	return (
-		<section className="rounded-md border border-border bg-white p-5">
-			<p className="text-xs font-medium uppercase tracking-normal text-muted">
+		<section className="rounded-xl border border-surface-200 bg-white p-6">
+			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
 				Tableau workbook
 			</p>
-			<h2 className="mt-2 text-xl font-semibold">
+			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
 				{asset.displayName} market view
 			</h2>
-			<p className="mt-1 text-xs text-muted">
+			<p className="mt-1 text-[13px] font-medium text-surface-700">
 				How to read this: Use Tableau for visual market context.
 			</p>
 			{embedUrl ? (
 				<iframe
-					className="mt-5 aspect-video w-full rounded-md border border-border"
+					className="mt-5 aspect-video w-full rounded-xl border border-surface-200"
 					src={embedUrl}
 					title={`${asset.displayName} Tableau workbook`}
 				/>
 			) : (
-				<p className="mt-5 text-sm text-muted">Tableau workbook coming soon</p>
+				<p className="mt-5 text-sm leading-6 text-surface-700">
+					Tableau workbook coming soon
+				</p>
 			)}
 		</section>
 	);

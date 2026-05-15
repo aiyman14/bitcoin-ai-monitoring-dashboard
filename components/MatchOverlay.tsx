@@ -33,7 +33,8 @@ type TooltipValue =
 
 type TooltipName = number | string | undefined;
 
-const MATCH_LINE_COLOR = "#3d3a36";
+const SURFACE_200 = "var(--color-surface-200)";
+const SURFACE_700 = "var(--color-surface-700)";
 
 export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 	const [highlightedMatch, setHighlightedMatch] = useState<number | null>(null);
@@ -46,18 +47,18 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 
 	return (
 		<section
-			className="rounded-md border border-border bg-white p-5"
+			className="rounded-xl border border-surface-200 bg-white p-6"
 			data-current-series-length={currentSeriesLength}
 			data-match-count={matches.length}
 			data-window-hours={pattern?.window_hours ?? 0}
 		>
-			<p className="text-xs font-medium uppercase tracking-normal text-muted">
+			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
 				Pattern overlay
 			</p>
-			<h2 className="mt-2 text-xl font-semibold">
+			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
 				The current shape sits inside a wider historical range
 			</h2>
-			<p className="mt-1 text-xs text-muted">
+			<p className="mt-1 text-[13px] font-medium text-surface-700">
 				Each gray line is one of the {pattern?.k ?? 0} most similar past
 				windows; the orange line is now. All lines start at 0% to compare
 				shapes.
@@ -65,7 +66,10 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 
 			{hasSeries ? (
 				<>
-					<p className="mt-4 text-xs text-muted" aria-live="polite">
+					<p
+						className="mt-4 text-[13px] font-medium text-surface-700"
+						aria-live="polite"
+					>
 						{highlightedDate
 							? `Highlighted match: ${formatDate(highlightedDate)}`
 							: "Hover a gray line to see its match date."}
@@ -76,7 +80,7 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 								data={chartData}
 								margin={{ bottom: 8, left: 0, right: 16, top: 16 }}
 							>
-								<CartesianGrid stroke="#e5e7eb" strokeDasharray="3 3" />
+								<CartesianGrid stroke={SURFACE_200} strokeDasharray="3 3" />
 								<XAxis
 									allowDecimals={false}
 									dataKey="t"
@@ -85,12 +89,12 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 										position: "insideBottom",
 										value: "t",
 									}}
-									stroke="#6b7280"
+									stroke={SURFACE_700}
 									tick={{ fontSize: 12 }}
 									tickLine={false}
 								/>
 								<YAxis
-									stroke="#6b7280"
+									stroke={SURFACE_700}
 									tick={{ fontSize: 12 }}
 									tickFormatter={(value) => formatSignedPercent(Number(value))}
 									tickLine={false}
@@ -117,7 +121,7 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 											name={matchKey(index)}
 											onMouseEnter={() => setHighlightedMatch(index)}
 											onMouseLeave={() => setHighlightedMatch(null)}
-											stroke={MATCH_LINE_COLOR}
+											stroke={SURFACE_700}
 											strokeOpacity={
 												isDimmed ? 0.14 : isHighlighted ? 0.9 : 0.4
 											}
@@ -141,7 +145,9 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 					</div>
 				</>
 			) : (
-				<p className="mt-5 text-sm text-muted">Pattern series unavailable.</p>
+				<p className="mt-5 text-sm leading-6 text-surface-700">
+					Pattern series unavailable.
+				</p>
 			)}
 		</section>
 	);

@@ -1,16 +1,14 @@
+import { AssetSelector } from "@/components/AssetSelector";
+import { PatternDashboard } from "@/components/PatternDashboard";
+import { PriceCallout } from "@/components/PriceCallout";
+import { TableauEmbed } from "@/components/TableauEmbed";
 import { ASSETS } from "@/lib/assets";
 import {
 	readHourlyRows,
 	readPatternArtifacts,
-	readSignalArtifact,
 	summarizePrice,
 } from "@/lib/data";
 import { formatDateTime } from "@/lib/format";
-import { AssetSelector } from "@/components/AssetSelector";
-import { PatternDashboard } from "@/components/PatternDashboard";
-import { PriceCallout } from "@/components/PriceCallout";
-import { SignalCallout } from "@/components/SignalCallout";
-import { TableauEmbed } from "@/components/TableauEmbed";
 import { Suspense } from "react";
 
 const DISCLAIMER =
@@ -19,27 +17,26 @@ const DISCLAIMER =
 export default async function Home() {
 	const enabledAssets = ASSETS.filter((asset) => asset.enabled);
 	const asset = enabledAssets[0] ?? ASSETS[0];
-	const [patterns, signal, hourlyRows] = await Promise.all([
+	const [patterns, hourlyRows] = await Promise.all([
 		readPatternArtifacts(asset),
-		readSignalArtifact(asset),
 		readHourlyRows(asset),
 	]);
 	const price = summarizePrice(hourlyRows);
 	const defaultPattern = patterns["24h"] ?? Object.values(patterns)[0] ?? null;
-	const asOf = defaultPattern?.as_of ?? signal?.as_of ?? price?.asOf ?? null;
+	const asOf = defaultPattern?.as_of ?? price?.asOf ?? null;
 
 	return (
-		<main className="mx-auto flex min-h-screen max-w-6xl flex-col gap-8 px-6 py-8">
-			<header className="flex flex-col gap-4 border-b border-border pb-6 md:flex-row md:items-end md:justify-between">
+		<main className="mx-auto flex min-h-screen max-w-[1200px] flex-col gap-10 px-4 py-6 text-surface-700 sm:px-6 lg:px-8 lg:py-10">
+			<header className="flex flex-col gap-5 rounded-xl border border-surface-200 bg-gradient-to-br from-bitcoin-50/70 via-white to-white p-6 md:flex-row md:items-end md:justify-between">
 				<div>
-					<p className="text-sm font-medium text-muted">
+					<p className="text-[13px] font-medium text-surface-700">
 						Pattern recognition with measured ranges.
 					</p>
-					<h1 className="mt-2 text-3xl font-semibold tracking-normal md:text-5xl">
+					<h1 className="mt-2 text-4xl font-semibold tracking-normal text-surface-900 md:text-5xl">
 						{asset.displayName} Market Monitor - A Responsible AI Dashboard
 					</h1>
 					{asOf ? (
-						<p className="mt-3 text-sm text-muted">
+						<p className="mt-3 text-[13px] font-medium text-surface-700">
 							As of {formatDateTime(asOf)}
 						</p>
 					) : null}
@@ -47,12 +44,12 @@ export default async function Home() {
 				<div className="flex flex-col gap-3 md:items-end">
 					<Suspense
 						fallback={
-							<div className="h-10 w-40 rounded-md border border-border bg-white" />
+							<div className="h-10 w-40 rounded-lg border border-surface-200 bg-white" />
 						}
 					>
 						<AssetSelector assets={ASSETS} selectedAssetId={asset.id} />
 					</Suspense>
-					<div className="rounded-md border border-border bg-white px-4 py-3 text-sm text-muted">
+					<div className="rounded-xl border border-surface-200 bg-white/80 px-4 py-3 text-[13px] font-medium leading-5 text-surface-700">
 						{DISCLAIMER}
 					</div>
 				</div>
@@ -60,16 +57,13 @@ export default async function Home() {
 
 			<Suspense
 				fallback={
-					<div className="rounded-md border border-border bg-white p-5" />
+					<div className="rounded-xl border border-surface-200 bg-white p-6" />
 				}
 			>
 				<PatternDashboard asset={asset} patterns={patterns} />
 			</Suspense>
 
-			<section className="grid gap-5 md:grid-cols-2">
-				<PriceCallout asset={asset} price={price} />
-				<SignalCallout asset={asset} signal={signal} />
-			</section>
+			<PriceCallout asset={asset} price={price} />
 
 			<TableauEmbed asset={asset} />
 		</main>

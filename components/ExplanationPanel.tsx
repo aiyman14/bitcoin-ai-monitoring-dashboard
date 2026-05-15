@@ -1,6 +1,6 @@
 import type { AssetConfig } from "@/lib/assets";
-import type { HorizonLabel, PatternArtifact } from "@/lib/patterns";
 import { formatDate, formatSignedPercent } from "@/lib/format";
+import type { HorizonLabel, PatternArtifact } from "@/lib/patterns";
 
 type ExplanationPanelProps = {
 	asset: AssetConfig;
@@ -29,17 +29,17 @@ export function ExplanationPanel({ asset, pattern }: ExplanationPanelProps) {
 		: "the next period";
 
 	return (
-		<section className="rounded-md border border-border bg-white p-5 text-base leading-7">
-			<p className="text-xs font-medium uppercase tracking-normal text-muted">
+		<section className="rounded-xl border border-surface-200 bg-white p-6 text-base leading-relaxed text-surface-700">
+			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
 				Plain-English readout
 			</p>
-			<h2 className="mt-2 text-2xl font-semibold">
+			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
 				{asset.displayName} monitoring snapshot
 			</h2>
-			<p className="mt-1 text-xs text-muted">
+			<p className="mt-1 text-[13px] font-medium text-surface-700">
 				How to read this: Use ranges as context, not instructions.
 			</p>
-			<p className="mt-5">
+			<p className="mt-5 tabular-nums">
 				Over {windowLabel} of {asset.displayName} trading, market conditions
 				look most similar to {pattern?.k ?? 0} past windows between{" "}
 				{firstMatchDate} and {lastMatchDate}. In {horizonLabel} that followed

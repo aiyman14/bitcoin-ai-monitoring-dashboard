@@ -1,6 +1,6 @@
 import type { AssetConfig } from "@/lib/assets";
-import type { PatternArtifact } from "@/lib/patterns";
 import { formatDate, formatNumber, formatSignedPercent } from "@/lib/format";
+import type { PatternArtifact } from "@/lib/patterns";
 
 type PatternMatchTableProps = {
 	asset: AssetConfig;
@@ -15,33 +15,33 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 	const horizons = pattern?.horizons ?? [];
 
 	return (
-		<section className="rounded-md border border-border bg-white p-5">
-			<p className="text-xs font-medium uppercase tracking-normal text-muted">
+		<section className="rounded-xl border border-surface-200 bg-white p-6">
+			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
 				Historical similarity
 			</p>
-			<h2 className="mt-2 text-xl font-semibold">
+			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
 				{asset.displayName} similar-window matches
 			</h2>
-			<p className="mt-1 text-xs text-muted">
+			<p className="mt-1 text-[13px] font-medium text-surface-700">
 				How to read this: Lower distance means closer historical shape.
 			</p>
 			{summary ? (
-				<p className="mt-4 text-sm text-muted">
+				<p className="mt-4 text-sm leading-6 text-surface-700">
 					The {pattern?.k ?? 0} closest windows were followed by {horizon}{" "}
 					returns from {formatSignedPercent(summary.p10)} to{" "}
 					{formatSignedPercent(summary.p90)}, with a median of{" "}
 					{formatSignedPercent(summary.median)}.
 				</p>
 			) : (
-				<p className="mt-4 text-sm text-muted">
+				<p className="mt-4 text-sm leading-6 text-surface-700">
 					Similar-window artifact unavailable.
 				</p>
 			)}
 			{pattern && pattern.matches.length > 0 ? (
 				<div className="mt-5 overflow-x-auto">
-					<table className="w-full min-w-[560px] border-collapse text-left text-sm">
-						<thead className="text-xs uppercase tracking-normal text-muted">
-							<tr className="border-b border-border">
+					<table className="w-full min-w-[560px] border-collapse text-left text-sm tabular-nums">
+						<thead className="text-[13px] uppercase tracking-normal text-surface-700">
+							<tr className="border-b border-surface-200">
 								<th className="py-3 pr-4 font-medium">Match start</th>
 								<th className="py-3 pr-4 font-medium">Distance</th>
 								{horizons.map((label) => (
@@ -54,7 +54,7 @@ export function PatternMatchTable({ asset, pattern }: PatternMatchTableProps) {
 						<tbody>
 							{pattern.matches.map((match) => (
 								<tr
-									className="border-b border-border last:border-0"
+									className="border-b border-surface-200 text-surface-700 last:border-0"
 									key={`${match.match_start}-${match.distance}`}
 								>
 									<td className="py-3 pr-4">{formatDate(match.match_start)}</td>

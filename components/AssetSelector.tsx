@@ -34,7 +34,7 @@ export function AssetSelector({ assets, selectedAssetId }: AssetSelectorProps) {
 	return (
 		<select
 			aria-label="Asset"
-			className="h-10 rounded-md border border-border bg-white px-3 text-sm"
+			className="h-10 rounded-lg border border-surface-200 bg-white px-3 text-sm font-medium text-surface-900 outline-none transition hover:border-bitcoin-100 focus:border-bitcoin-500 focus:ring-2 focus:ring-bitcoin-100"
 			onChange={(event) => selectAsset(event.target.value)}
 			value={selectedAsset?.id}
 		>
