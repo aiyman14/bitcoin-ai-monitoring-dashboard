@@ -4,4 +4,4 @@ A Bitcoin monitoring dashboard built around historical pattern recognition. Not 
 
 **Live site:** https://bitcoin-ai-monitoring-dashboard.pages.dev
 
-DACSS 604 final project — Aiyman Akbar.
+DACSS 604 final project. By Aiyman Akbar.

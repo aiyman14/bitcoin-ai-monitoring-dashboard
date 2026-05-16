@@ -57,7 +57,6 @@ def refresh_asset(
 
     (asset_dir / "pattern_top_k.json").unlink(missing_ok=True)
     _write_json(asset_dir / "signal.json", signal)
-    hourly_featured.tail(24 * 90).to_csv(asset_dir / "tableau_extract.csv", index=False)
     hourly_featured.tail(24 * 90).to_csv(asset_dir / "tableau_recent.csv", index=False)
     daily.to_csv(asset_dir / "tableau_long.csv", index=False)
 
