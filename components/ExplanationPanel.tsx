@@ -1,7 +1,6 @@
 import type { AssetConfig } from "@/lib/assets";
 import { formatDate, formatSignedPercent } from "@/lib/format";
 import type { HorizonLabel, PatternArtifact } from "@/lib/patterns";
-import { Eyebrow } from "./Eyebrow";
 
 type ExplanationPanelProps = {
 	asset: AssetConfig;
@@ -31,13 +30,9 @@ export function ExplanationPanel({ asset, pattern }: ExplanationPanelProps) {
 
 	return (
 		<section className="panel px-8 py-7">
-			<Eyebrow>Plain-English readout</Eyebrow>
-			<h2 className="display-2 mt-[14px]">
+			<h2 className="display-2">
 				{asset.displayName} monitoring snapshot
 			</h2>
-			<p className="caption mt-[6px]">
-				What this tells you: Historical context, not a prediction.
-			</p>
 			<p className="mt-5 text-[15px] leading-[1.65] text-text-2 tabular-nums">
 				Over {windowLabel} of {asset.displayName} trading, market conditions
 				look most similar to <Num>{pattern?.k ?? 0}</Num> past windows between{" "}

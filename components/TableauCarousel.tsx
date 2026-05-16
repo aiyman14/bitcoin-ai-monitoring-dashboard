@@ -48,7 +48,6 @@ export function TableauCarousel({
 				<div className="min-w-0">
 					<Eyebrow>Market context</Eyebrow>
 					<h2 className="display-2 mt-[14px]">{slide.title}</h2>
-					<p className="caption mt-[6px]">{slide.caption}</p>
 				</div>
 				<div className="flex items-center pt-1">
 					<PositionCounter index={index} total={total} />
@@ -77,7 +76,7 @@ export function TableauCarousel({
 				/>
 			</div>
 
-			<p className="mt-6 max-w-[75ch] text-[14px] leading-[1.7] text-text-2">
+			<p className="mt-6 text-[14px] leading-[1.7] text-text-2">
 				{slide.description}
 			</p>
 		</section>

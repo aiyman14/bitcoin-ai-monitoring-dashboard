@@ -35,7 +35,7 @@ export function LookbackSelector({ activeLookback }: LookbackSelectorProps) {
 			<div>
 				<Eyebrow>Lookback window</Eyebrow>
 				<p className="caption mt-[6px]">
-					What this tells you: Switch the comparison window.
+					Switch the comparison window.
 				</p>
 			</div>
 			<div className="flex flex-wrap gap-2">

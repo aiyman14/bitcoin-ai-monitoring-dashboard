@@ -9,23 +9,6 @@ import {
 	type PatternArtifactsByLookback,
 } from "./patterns";
 
-export type SignalRegime = {
-	label: string;
-	trend_label: string;
-	volatility_percentile: number | null;
-	window_hours: number;
-};
-
-export type SignalArtifact = {
-	as_of: string | null;
-	asset: string;
-	direction: "down" | "unavailable" | "up";
-	model: string;
-	probability_up: number | null;
-	regime?: SignalRegime;
-	test_f1: number | null;
-};
-
 export type HourlyRow = {
 	close: number;
 	openTime: string;
@@ -82,12 +65,6 @@ export async function readPatternArtifacts(
 			return entry[1] !== null;
 		}),
 	);
-}
-
-export function readSignalArtifact(
-	asset: AssetConfig,
-): Promise<SignalArtifact | null> {
-	return readAssetJson<SignalArtifact>(asset, "signal.json");
 }
 
 export async function readHourlyRows(asset: AssetConfig): Promise<HourlyRow[]> {
