@@ -76,7 +76,8 @@ export default async function Home() {
 
 			<TableauEmbed
 				asset={asset}
-				caption="What this tells you: Recent movement connects to the match window."
+				caption="What this tells you: Where Bitcoin is sitting right now, the same window the pattern recognition is comparing against history."
+				description={`This chart zooms into the last 90 days of ${asset.displayName}'s daily closing price, so you can see exactly where the market is sitting heading into today. The horizontal axis is the calendar; the vertical axis is the price in US dollars, trimmed so the recent waves are visible rather than flattened against zero. The long-history chart above gave you the multi-year arc, and the histogram showed you what a normal ${asset.displayName} day looks like. This view zooms in on the moment that everyone is actually watching right now. The pattern recognition section below takes the most recent 24 hours, 72 hours, or week from this same data and asks one question: when has ${asset.displayName} looked like this before, and what tended to happen next?`}
 				title="Where the market is right now"
 				workbookUrl={asset.tableauWorkbookUrls?.zoom}
 			/>
