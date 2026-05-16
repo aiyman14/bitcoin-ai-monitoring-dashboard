@@ -2,8 +2,6 @@ import type { AssetConfig } from "@/lib/assets";
 
 type TableauEmbedProps = {
 	asset: AssetConfig;
-	caption?: string;
-	description?: string;
 	title?: string;
 	workbookUrl?: string;
 };
@@ -16,44 +14,29 @@ function buildEmbedUrl(rawUrl: string): string {
 	return `${trimmed}${separator}${EMBED_PARAMS}`;
 }
 
-export function TableauEmbed({
-	asset,
-	caption,
-	description,
-	title,
-	workbookUrl,
-}: TableauEmbedProps) {
+/**
+ * Bare iframe-only embed. The surrounding chrome (panel, title,
+ * caption, description) lives in TableauCarousel.
+ */
+export function TableauEmbed({ asset, title, workbookUrl }: TableauEmbedProps) {
 	const resolvedUrl =
 		workbookUrl?.trim() || asset.tableauWorkbookUrl?.trim() || "";
 	const embedUrl = resolvedUrl ? buildEmbedUrl(resolvedUrl) : null;
-	const panelTitle = title ?? `${asset.displayName} market view`;
-	const panelCaption =
-		caption ?? "What this tells you: Visual market context, held in Tableau.";
+	const iframeTitle = title ?? `${asset.displayName} market view`;
+
+	if (!embedUrl) {
+		return (
+			<div className="flex h-full min-h-[380px] items-center justify-center rounded-[3px] border-[1.5px] border-border bg-panel-3 p-6 font-mono text-sm text-text-2">
+				Visual coming soon
+			</div>
+		);
+	}
 
 	return (
-		<section className="rounded-xl border border-surface-200 bg-white p-6">
-			<h2 className="text-2xl font-semibold tracking-normal text-surface-900">
-				{panelTitle}
-			</h2>
-			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				{panelCaption}
-			</p>
-			{embedUrl ? (
-				<iframe
-					className="mt-5 aspect-video w-full rounded-xl border border-surface-200"
-					src={embedUrl}
-					title={panelTitle}
-				/>
-			) : (
-				<p className="mt-5 text-sm leading-6 text-surface-700">
-					Visual coming soon
-				</p>
-			)}
-			{description ? (
-				<p className="mt-5 text-sm leading-7 text-surface-700">
-					{description}
-				</p>
-			) : null}
-		</section>
+		<iframe
+			className="block aspect-video h-full w-full rounded-[3px] border-[1.5px] border-border bg-panel-3"
+			src={embedUrl}
+			title={iframeTitle}
+		/>
 	);
 }

@@ -33,8 +33,12 @@ type TooltipValue =
 
 type TooltipName = number | string | undefined;
 
-const SURFACE_200 = "var(--color-surface-200)";
-const SURFACE_700 = "var(--color-surface-700)";
+// dark-theme axis colors, pulled from the CSS variables so the
+// chart stays in lockstep with the design tokens
+const AXIS = "rgba(245, 245, 240, 0.5)";
+const GRID = "rgba(245, 245, 240, 0.07)";
+const MATCH_LINE = "#d4d2cc";
+const TICK_FONT = "JetBrains Mono, ui-monospace, monospace";
 
 export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 	const [highlightedMatch, setHighlightedMatch] = useState<number | null>(null);
@@ -49,67 +53,68 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 	const xAxisLabel = isDailyFrame ? "Days into window" : "Hours into window";
 
 	return (
-		<section
-			className="rounded-xl border border-surface-200 bg-white p-6"
+		<div
+			className="h-full w-full"
 			data-current-series-length={currentSeriesLength}
 			data-match-count={matches.length}
 			data-window-hours={pattern?.window_hours ?? 0}
 		>
-			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
-				Pattern overlay
-			</p>
-			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
-				Today's shape against the past windows that look most like it
-			</h2>
-			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				Each gray line is one of the {pattern?.k ?? 0} past windows that most
-				resembled today; the orange line is today.
-			</p>
-			<p className="mt-2 text-[13px] leading-5 text-surface-700">
-				Each line shows the percentage move from the start of its window,
-				not the dollar price. Aligning them all at 0% strips out the
-				difference between, say, {asset.displayName} around $30,000 and{" "}
-				{asset.displayName} around $90,000, so you can compare how the
-				shapes moved rather than how much money was involved.
-			</p>
-
 			{hasSeries ? (
 				<>
 					<p
-						className="mt-4 text-[13px] font-medium text-surface-700"
 						aria-live="polite"
+						className="mb-3 font-mono text-[12px] text-text-2"
 					>
-						{highlightedDate
-							? `Highlighted match: ${formatDate(highlightedDate)}`
-							: "Hover a gray line to see its match date."}
+						{highlightedDate ? (
+							<>
+								Highlighted match:{" "}
+								<span className="accent-num">{formatDate(highlightedDate)}</span>
+							</>
+						) : (
+							"Hover a gray line to see its match date."
+						)}
 					</p>
-					<div className="mt-3 h-80 w-full">
+					<div className="h-[360px] w-full">
 						<ResponsiveContainer height="100%" width="100%">
 							<LineChart
 								data={chartData}
-								margin={{ bottom: 8, left: 0, right: 16, top: 16 }}
+								margin={{ bottom: 12, left: 0, right: 18, top: 14 }}
 							>
-								<CartesianGrid stroke={SURFACE_200} strokeDasharray="3 3" />
+								<CartesianGrid stroke={GRID} strokeDasharray="3 3" />
 								<XAxis
 									allowDecimals={false}
 									dataKey="t"
 									label={{
+										fill: "rgba(245,245,240,0.55)",
+										fontSize: 11,
 										offset: -2,
 										position: "insideBottom",
 										value: xAxisLabel,
 									}}
-									stroke={SURFACE_700}
-									tick={{ fontSize: 12 }}
+									stroke={AXIS}
+									tick={{ fill: AXIS, fontFamily: TICK_FONT, fontSize: 11 }}
 									tickLine={false}
 								/>
 								<YAxis
-									stroke={SURFACE_700}
-									tick={{ fontSize: 12 }}
+									stroke={AXIS}
+									tick={{ fill: AXIS, fontFamily: TICK_FONT, fontSize: 11 }}
 									tickFormatter={(value) => formatSignedPercent(Number(value))}
 									tickLine={false}
 									width={56}
 								/>
 								<Tooltip
+									contentStyle={{
+										background: "#1a1a1f",
+										border: "1.5px solid #54545f",
+										borderRadius: 0,
+										color: "#f5f5f0",
+										fontFamily: TICK_FONT,
+										fontSize: 11,
+									}}
+									cursor={{
+										stroke: "rgba(247,147,26,0.4)",
+										strokeWidth: 1,
+									}}
 									formatter={(value: TooltipValue, name: TooltipName) => [
 										formatTooltipValue(value),
 										formatTooltipName(name, matches),
@@ -130,23 +135,28 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 											name={matchKey(index)}
 											onMouseEnter={() => setHighlightedMatch(index)}
 											onMouseLeave={() => setHighlightedMatch(null)}
-											stroke={SURFACE_700}
+											stroke={MATCH_LINE}
 											strokeOpacity={
-												isDimmed ? 0.14 : isHighlighted ? 0.9 : 0.4
+												isDimmed ? 0.1 : isHighlighted ? 0.95 : 0.35
 											}
-											strokeWidth={isHighlighted ? 2.5 : 1.4}
+											strokeWidth={isHighlighted ? 2.5 : 1.3}
 											type="linear"
 										/>
 									);
 								})}
 								<Line
-									activeDot={{ r: 4 }}
+									activeDot={{
+										fill: asset.accentColor,
+										r: 4,
+										stroke: "#1a1a1f",
+										strokeWidth: 2,
+									}}
 									dataKey="current"
 									dot={false}
 									isAnimationActive={false}
 									name="current"
 									stroke={asset.accentColor}
-									strokeWidth={3}
+									strokeWidth={3.2}
 									type="linear"
 								/>
 							</LineChart>
@@ -154,11 +164,11 @@ export function MatchOverlay({ asset, pattern }: MatchOverlayProps) {
 					</div>
 				</>
 			) : (
-				<p className="mt-5 text-sm leading-6 text-surface-700">
+				<p className="text-sm leading-6 text-text-2">
 					Pattern series unavailable.
 				</p>
 			)}
-		</section>
+		</div>
 	);
 }
 
