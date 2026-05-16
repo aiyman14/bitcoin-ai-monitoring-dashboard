@@ -9,28 +9,54 @@ const config: Config = {
 	theme: {
 		extend: {
 			colors: {
-				background: "#fafaf7",
+				// page + surfaces
+				background: "#1a1a1f",
+				panel: "#25252c",
+				"panel-2": "#2f2f37",
+				"panel-3": "#1f1f25",
+
+				// borders
+				border: "#3a3a44",
+				"border-strong": "#54545f",
+
+				// type, off-white scale on dark
+				foreground: "#f5f5f0",
+				"text-2": "#b8b6b0",
+				"text-3": "#7c7a76",
+
+				// kept for backwards compatibility with existing imports
+				muted: "#b8b6b0",
+				surface: {
+					50: "#1a1a1f",   // page bg
+					100: "#1f1f25",  // recessed
+					200: "#3a3a44",  // borders
+					700: "#b8b6b0",  // secondary text
+					900: "#f5f5f0",  // primary text
+				},
+
+				// bitcoin orange, tactical accent only
 				bitcoin: {
-					50: "#fff5e6",
-					100: "#ffe2b8",
-					500: "#f7931a",
-					600: "#e07a00",
+					50: "rgba(247, 147, 26, 0.06)",
+					100: "rgba(247, 147, 26, 0.14)",
+					500: "#F7931A",
+					600: "#c87714",
 					900: "#5a2e00",
 				},
-				border: "#e8e7e1",
-				foreground: "#1c1a17",
-				muted: "#3d3a36",
-				negative: "#b8453d",
+
+				// state colors, kept as-is per the brief
 				positive: "#1a7f5a",
-				surface: {
-					50: "#fafaf7",
-					100: "#f3f3ef",
-					200: "#e8e7e1",
-					700: "#3d3a36",
-					900: "#1c1a17",
-				},
+				negative: "#b8453d",
+				"positive-fg": "#4dc28a",
+				"negative-fg": "#e88880",
 			},
 			fontFamily: {
+				display: [
+					"Space Grotesk",
+					"Inter",
+					"ui-sans-serif",
+					"system-ui",
+					"sans-serif",
+				],
 				sans: [
 					"Inter",
 					"ui-sans-serif",
@@ -40,6 +66,22 @@ const config: Config = {
 					"Segoe UI",
 					"sans-serif",
 				],
+				mono: [
+					"JetBrains Mono",
+					"ui-monospace",
+					"SFMono-Regular",
+					"Menlo",
+					"Monaco",
+					"monospace",
+				],
+			},
+			boxShadow: {
+				comic: "5px 5px 0 #54545f",
+				"comic-sm": "3px 3px 0 #54545f",
+				"comic-bitcoin": "3px 3px 0 #c87714",
+			},
+			borderRadius: {
+				panel: "4px",
 			},
 		},
 	},

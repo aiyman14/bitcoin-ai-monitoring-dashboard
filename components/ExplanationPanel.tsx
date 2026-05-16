@@ -1,6 +1,7 @@
 import type { AssetConfig } from "@/lib/assets";
 import { formatDate, formatSignedPercent } from "@/lib/format";
 import type { HorizonLabel, PatternArtifact } from "@/lib/patterns";
+import { Eyebrow } from "./Eyebrow";
 
 type ExplanationPanelProps = {
 	asset: AssetConfig;
@@ -29,26 +30,30 @@ export function ExplanationPanel({ asset, pattern }: ExplanationPanelProps) {
 		: "the next period";
 
 	return (
-		<section className="rounded-xl border border-surface-200 bg-white p-6 text-base leading-relaxed text-surface-700">
-			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
-				Plain-English readout
-			</p>
-			<h2 className="mt-2 text-2xl font-semibold tracking-normal text-surface-900">
+		<section className="panel px-8 py-7">
+			<Eyebrow>Plain-English readout</Eyebrow>
+			<h2 className="display-2 mt-[14px]">
 				{asset.displayName} monitoring snapshot
 			</h2>
-			<p className="mt-1 text-[13px] font-medium text-surface-700">
+			<p className="caption mt-[6px]">
 				What this tells you: Historical context, not a prediction.
 			</p>
-			<p className="mt-5 tabular-nums">
+			<p className="mt-5 text-[15px] leading-[1.65] text-text-2 tabular-nums">
 				Over {windowLabel} of {asset.displayName} trading, market conditions
-				look most similar to {pattern?.k ?? 0} past windows between{" "}
-				{firstMatchDate} and {lastMatchDate}. In {horizonLabel} that followed
-				those windows, prices moved by anywhere from {rangeStart} to {rangeEnd},
-				with a typical move of {median}. This is a monitoring snapshot built
-				from historical pattern matching, not guidance.
+				look most similar to <Num>{pattern?.k ?? 0}</Num> past windows between{" "}
+				<Num>{firstMatchDate}</Num> and <Num>{lastMatchDate}</Num>. In{" "}
+				{horizonLabel} that followed those windows, prices moved by anywhere
+				from <Num>{rangeStart}</Num> to <Num>{rangeEnd}</Num>, with a typical
+				move of <Num>{median}</Num>. This is a monitoring snapshot built from
+				historical pattern matching, not guidance.
 			</p>
 		</section>
 	);
+}
+
+/** highlight inline data with a faint orange pill, small typographic accent */
+function Num({ children }: { children: React.ReactNode }) {
+	return <span className="accent-num">{children}</span>;
 }
 
 function formatWindowLabel(windowHours: number): string {

@@ -6,6 +6,7 @@ import {
 	type LookbackLabel,
 } from "@/lib/patterns";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Eyebrow } from "./Eyebrow";
 
 type LookbackSelectorProps = {
 	activeLookback: LookbackLabel;
@@ -30,14 +31,14 @@ export function LookbackSelector({ activeLookback }: LookbackSelectorProps) {
 	}
 
 	return (
-		<section className="rounded-xl border border-surface-200 bg-white p-5">
-			<p className="text-[13px] font-medium uppercase tracking-normal text-surface-700">
-				Lookback window
-			</p>
-			<p className="mt-1 text-[13px] font-medium text-surface-700">
-				What this tells you: Switch the comparison window.
-			</p>
-			<div className="mt-3 flex flex-wrap gap-2">
+		<section className="panel grid grid-cols-1 items-center gap-6 px-8 py-[22px] md:grid-cols-[1fr_auto]">
+			<div>
+				<Eyebrow>Lookback window</Eyebrow>
+				<p className="caption mt-[6px]">
+					What this tells you: Switch the comparison window.
+				</p>
+			</div>
+			<div className="flex flex-wrap gap-2">
 				{LOOKBACK_OPTIONS.map((option) => {
 					const selected = option.value === activeLookback;
 					return (
@@ -45,8 +46,8 @@ export function LookbackSelector({ activeLookback }: LookbackSelectorProps) {
 							aria-pressed={selected}
 							className={
 								selected
-									? "rounded-lg border border-bitcoin-600 bg-bitcoin-500 px-4 py-2 text-sm font-medium text-white transition"
-									: "rounded-lg border border-surface-200 bg-white px-4 py-2 text-sm font-medium text-surface-900 transition hover:border-bitcoin-100 hover:bg-bitcoin-50"
+									? "translate-x-[-1px] translate-y-[-1px] cursor-pointer rounded-[2px] border-[1.5px] border-bitcoin-500 bg-bitcoin-500 px-[18px] py-[9px] font-mono text-[12px] font-medium uppercase tracking-[0.04em] text-[#1a1a1f] shadow-comic-bitcoin transition-all"
+									: "cursor-pointer rounded-[2px] border-[1.5px] border-border-strong bg-transparent px-[18px] py-[9px] font-mono text-[12px] font-medium uppercase tracking-[0.04em] text-text-2 transition-all hover:border-bitcoin-500/40 hover:text-foreground"
 							}
 							key={option.value}
 							onClick={() => selectLookback(option.value)}
