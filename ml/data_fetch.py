@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from typing import Any
 
 import pandas as pd
@@ -8,8 +9,18 @@ import requests
 from .assets import AssetConfig
 
 BINANCE_KLINES_URL = "https://api.binance.com/api/v3/klines"
-YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
+YAHOO_CHART_HOSTS = (
+    "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}",
+    "https://query2.finance.yahoo.com/v8/finance/chart/{symbol}",
+)
 YAHOO_DAILY_START = "2014-09-17"
+YAHOO_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 "
+    "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+)
+# Backoffs: 5, 15, 45, 90, 150 seconds = ~5 min total retry budget. Survives a
+# typical Yahoo 429 cooldown without giving up.
+RETRY_BACKOFF_SCHEDULE = (5, 15, 45, 90, 150)
 
 
 def fetch_klines(asset: AssetConfig, lookback_hours: int = 24 * 30) -> pd.DataFrame:
@@ -115,20 +126,40 @@ def _clean_ohlcv(frame: pd.DataFrame) -> pd.DataFrame:
 
 
 def _fetch_yahoo_chart(asset: AssetConfig, params: dict[str, Any]) -> dict[str, Any]:
-    response = requests.get(
-        YAHOO_CHART_URL.format(symbol=asset.yahoo_symbol),
-        params=params,
-        headers={"User-Agent": "market-monitor-refresh/0.1"},
-        timeout=30,
-    )
-    response.raise_for_status()
-    payload = response.json()["chart"]
-    if payload.get("error"):
-        raise requests.RequestException(payload["error"])
-    result = payload.get("result") or []
-    if not result:
-        raise requests.RequestException("Yahoo chart response contained no result")
-    return result[0]
+    # Yahoo's unofficial chart endpoint rate-limits and intermittently 429/503s
+    # against shared CI IP ranges. Retry with backoff and rotate through both
+    # query1 and query2 hosts so a transient 429 on one pool doesn't take down
+    # the whole cron.
+    last_exc: Exception | None = None
+    for attempt, wait_before in enumerate((0, *RETRY_BACKOFF_SCHEDULE)):
+        if wait_before:
+            time.sleep(wait_before)
+        host = YAHOO_CHART_HOSTS[attempt % len(YAHOO_CHART_HOSTS)]
+        try:
+            response = requests.get(
+                host.format(symbol=asset.yahoo_symbol),
+                params=params,
+                headers={
+                    "User-Agent": YAHOO_USER_AGENT,
+                    "Accept": "application/json",
+                    "Accept-Language": "en-US,en;q=0.9",
+                },
+                timeout=30,
+            )
+            response.raise_for_status()
+            payload = response.json()["chart"]
+            if payload.get("error"):
+                raise requests.RequestException(payload["error"])
+            result = payload.get("result") or []
+            if not result:
+                raise requests.RequestException(
+                    "Yahoo chart response contained no result"
+                )
+            return result[0]
+        except requests.RequestException as exc:
+            last_exc = exc
+    assert last_exc is not None
+    raise last_exc
 
 
 def _yahoo_payload_to_frame(payload: dict[str, Any]) -> pd.DataFrame:

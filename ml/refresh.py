@@ -79,9 +79,20 @@ def _merge_ohlcv(
         frame = pd.concat([existing, latest], ignore_index=True)
     else:
         frame = latest
+    frame = frame.copy()
+    # Force open_time and close_time to nanosecond UTC precision. Newer pandas
+    # versions (>= 2.4) preserve the source unit from pd.to_datetime, so a
+    # parquet's ns column concatenated with a freshly-fetched s column can fall
+    # back to an object dtype that breaks downstream .dt accessors.
+    frame["open_time"] = pd.to_datetime(frame["open_time"], utc=True).astype(
+        "datetime64[ns, UTC]"
+    )
+    if "close_time" in frame.columns:
+        frame["close_time"] = pd.to_datetime(frame["close_time"], utc=True).astype(
+            "datetime64[ns, UTC]"
+        )
     if frequency == "h":
-        frame = frame.copy()
-        frame["open_time"] = pd.to_datetime(frame["open_time"], utc=True).dt.floor("h")
+        frame["open_time"] = frame["open_time"].dt.floor("h")
         frame["close_time"] = (
             frame["open_time"] + pd.Timedelta(hours=1) - pd.Timedelta(milliseconds=1)
         )
