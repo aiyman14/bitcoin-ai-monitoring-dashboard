@@ -6,136 +6,171 @@ import {
 	formatDateTime,
 	formatSignedPercent,
 } from "@/lib/format";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 type PriceTickerProps = {
 	price: PriceSnapshot | null;
 };
 
-type TickerState = {
+type TickerEntry = {
+	id: "price" | "change" | "refresh" | "unavailable";
 	label: string;
 	value: string;
-	valueClassName?: string;
+	tone?: "neutral" | "positive" | "negative";
 };
 
-const INTERVAL_MS = 4000;
-const SLIDE_MS = 420;
+// Full loop duration for the marquee. The track contains two copies of
+// the entry list and animates from translateX(0) → translateX(-50%), so
+// CYCLE_SECONDS is the time it takes for one copy to scroll fully past.
+const CYCLE_SECONDS = 22;
 
-function getChangeClassName(change24h: number): string {
-	return change24h >= 0 ? "text-positive-fg" : "text-negative-fg";
+function buildEntries(price: PriceSnapshot | null): TickerEntry[] {
+	if (!price) {
+		return [
+			{
+				id: "unavailable",
+				label: "status",
+				value: "market data unavailable",
+			},
+		];
+	}
+	const change = price.change24h;
+	return [
+		{
+			id: "price",
+			label: "btc-usd",
+			value: formatCurrency(price.latestClose),
+		},
+		{
+			id: "change",
+			label: "24h",
+			value:
+				change === null ? "unavailable" : formatSignedPercent(change, 2),
+			tone:
+				change === null
+					? "neutral"
+					: change >= 0
+						? "positive"
+						: "negative",
+		},
+		{
+			id: "refresh",
+			label: "refreshed",
+			value: formatDateTime(price.asOf),
+		},
+	];
 }
 
-function TickerLine({ state }: { state: TickerState }) {
+function valueClassName(tone: TickerEntry["tone"]): string {
+	if (tone === "positive") return "text-positive-fg";
+	if (tone === "negative") return "text-negative-fg";
+	return "text-foreground";
+}
+
+function TickerItem({ entry }: { entry: TickerEntry }) {
 	return (
-		<span className="inline-flex min-w-0 items-center gap-2 whitespace-nowrap font-mono text-[15px] leading-none tracking-[0.01em] tabular-nums">
-			<span className="text-bitcoin-500">$</span>
-			<span className="text-text-2">{state.label}</span>
-			<span className={state.valueClassName ?? "text-foreground"}>
-				{state.value}
+		<span className="flex shrink-0 items-baseline gap-[10px] whitespace-nowrap font-mono text-[15px] leading-none tracking-[0.01em] tabular-nums">
+			<span aria-hidden className="select-none text-bitcoin-500">
+				$
 			</span>
+			<span className="text-text-2">{entry.label}</span>
+			<span aria-hidden className="select-none text-text-3">
+				›
+			</span>
+			<span className={valueClassName(entry.tone)}>{entry.value}</span>
 		</span>
 	);
 }
 
+/**
+ * PriceTicker
+ *
+ * Slim mono-text bar that scrolls horizontally like a stock ticker.
+ * Renders the entry list twice and animates the track from 0% to -50%,
+ * so the second copy lands exactly where the first started — seamless
+ * loop with no visible wrap. Animation pauses on hover/focus, and on
+ * `prefers-reduced-motion: reduce`. When price is null the bar shows
+ * a single fallback line and does not animate.
+ */
 export function PriceTicker({ price }: PriceTickerProps) {
-	const [activeIndex, setActiveIndex] = useState(0);
-	const [nextIndex, setNextIndex] = useState(0);
-	const [isSliding, setIsSliding] = useState(false);
-	const [isPaused, setIsPaused] = useState(false);
-	const pause = () => setIsPaused(true);
-	const resume = () => setIsPaused(false);
+	const entries = useMemo(() => buildEntries(price), [price]);
+	const canCycle = entries.length > 1;
+	const [paused, setPaused] = useState(false);
 
-	const states = useMemo<TickerState[]>(() => {
-		if (!price) {
-			return [{ label: "market data unavailable", value: "" }];
-		}
-
-		return [
-			{
-				label: "btc-usd:",
-				value: formatCurrency(price.latestClose),
-			},
-			{
-				label: "24h change:",
-				value:
-					price.change24h === null
-						? "unavailable"
-						: formatSignedPercent(price.change24h, 2),
-				valueClassName:
-					price.change24h === null
-						? "text-foreground"
-						: getChangeClassName(price.change24h),
-			},
-			{
-				label: "last refreshed:",
-				value: formatDateTime(price.asOf),
-			},
-		];
-	}, [price]);
-
-	useEffect(() => {
-		setActiveIndex(0);
-		setNextIndex(states.length > 1 ? 1 : 0);
-		setIsSliding(false);
-	}, [states.length]);
-
-	useEffect(() => {
-		if (states.length < 2 || isPaused || isSliding) {
-			return;
-		}
-
-		const intervalId = window.setInterval(() => {
-			setNextIndex((activeIndex + 1) % states.length);
-			setIsSliding(true);
-		}, INTERVAL_MS);
-
-		return () => window.clearInterval(intervalId);
-	}, [activeIndex, isPaused, isSliding, states.length]);
-
-	useEffect(() => {
-		if (!isSliding) {
-			return;
-		}
-
-		const timeoutId = window.setTimeout(() => {
-			setActiveIndex(nextIndex);
-			setNextIndex((nextIndex + 1) % states.length);
-			setIsSliding(false);
-		}, SLIDE_MS);
-
-		return () => window.clearTimeout(timeoutId);
-	}, [isSliding, nextIndex, states.length]);
-
-	const current = states[activeIndex] ?? states[0];
-	const next = states[nextIndex] ?? states[0];
+	const sequence = canCycle ? [...entries, ...entries] : entries;
 
 	return (
 		<section
 			data-price-ticker
-			className="panel h-[60px] overflow-hidden px-5 py-0"
-			onMouseEnter={pause}
-			onMouseLeave={resume}
-			onPointerEnter={pause}
-			onPointerLeave={resume}
+			className="panel relative h-[60px] overflow-hidden"
+			onMouseEnter={() => setPaused(true)}
+			onMouseLeave={() => setPaused(false)}
+			onFocusCapture={() => setPaused(true)}
+			onBlurCapture={() => setPaused(false)}
 		>
-			<div className="relative flex h-full items-center">
-				<div
-					className={`absolute left-0 top-1/2 w-full min-w-0 -translate-y-1/2 transition-transform duration-[420ms] ease-out ${
-						isSliding ? "-translate-x-[120%]" : "translate-x-0"
-					}`}
-				>
-					<TickerLine state={current} />
-				</div>
-				{states.length > 1 ? (
+			<style>{`
+				@keyframes bt-price-ticker-scroll {
+					from { transform: translate3d(0, 0, 0); }
+					to   { transform: translate3d(-50%, 0, 0); }
+				}
+				@media (prefers-reduced-motion: reduce) {
+					[data-price-ticker] [data-price-ticker-track] {
+						animation: none !important;
+						transform: none !important;
+					}
+				}
+			`}</style>
+
+			<div className="flex h-full items-center">
+				{canCycle ? (
 					<div
-						className={`absolute left-0 top-1/2 w-full min-w-0 -translate-y-1/2 transition-transform duration-[420ms] ease-out ${
-							isSliding ? "translate-x-0" : "translate-x-[120%]"
-						}`}
+						data-price-ticker-track
+						className="flex shrink-0 items-center will-change-transform"
+						style={{
+							paddingLeft: 20,
+							animation: `bt-price-ticker-scroll ${CYCLE_SECONDS}s linear infinite`,
+							animationPlayState: paused ? "paused" : "running",
+						}}
 					>
-						<TickerLine state={next} />
+						{sequence.map((entry, i) => (
+							<div
+								key={`${entry.id}-${i}`}
+								className="flex shrink-0 items-center"
+							>
+								<TickerItem entry={entry} />
+								<span
+									aria-hidden
+									className="mx-[44px] select-none font-mono text-[13px] leading-none text-text-3"
+								>
+									◆
+								</span>
+							</div>
+						))}
 					</div>
-				) : null}
+				) : (
+					<div className="px-5">
+						<TickerItem entry={entries[0]} />
+					</div>
+				)}
 			</div>
+
+			{/* Soft edge fades so items don't pop in/out at the panel borders. */}
+			<div
+				aria-hidden
+				className="pointer-events-none absolute inset-y-0 left-0 w-[36px]"
+				style={{
+					background:
+						"linear-gradient(to right, var(--color-panel) 10%, rgba(37, 37, 44, 0))",
+				}}
+			/>
+			<div
+				aria-hidden
+				className="pointer-events-none absolute inset-y-0 right-0 w-[36px]"
+				style={{
+					background:
+						"linear-gradient(to left, var(--color-panel) 10%, rgba(37, 37, 44, 0))",
+				}}
+			/>
 		</section>
 	);
 }
