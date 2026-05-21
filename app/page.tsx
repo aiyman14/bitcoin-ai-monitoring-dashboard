@@ -1,7 +1,7 @@
 import { AssetSelector } from "@/components/AssetSelector";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PatternDashboard } from "@/components/PatternDashboard";
-import { PriceCallout } from "@/components/PriceCallout";
+import { PriceTicker } from "@/components/PriceTicker";
 import { TableauCarousel } from "@/components/TableauCarousel";
 import { ASSETS } from "@/lib/assets";
 import {
@@ -83,15 +83,11 @@ export default async function Home() {
 				</div>
 			</header>
 
-			<PriceCallout asset={asset} price={price} />
+			<PriceTicker price={price} />
 
 			<TableauCarousel asset={asset} defaultIndex={0} slides={tableauSlides} />
 
-			<Suspense
-				fallback={
-					<div className="panel min-h-[200px] px-8 py-7" />
-				}
-			>
+			<Suspense fallback={<div className="panel min-h-[200px] px-8 py-7" />}>
 				<PatternDashboard
 					asset={asset}
 					disclaimer={DISCLAIMER}
