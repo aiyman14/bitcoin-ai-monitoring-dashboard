@@ -25,28 +25,28 @@ export default async function Home() {
 	const price = summarizePrice(hourlyRows);
 	const defaultPattern = patterns["24h"] ?? Object.values(patterns)[0] ?? null;
 	const asOf = defaultPattern?.as_of ?? price?.asOf ?? null;
-	const description = `A dashboard built to help you make sense of what ${asset.displayName} is doing right now. Instead of trying to predict where the market is going, it compares today's patterns to similar moments in the past and shows you what tended to happen afterward, so you can interpret today's market with real historical context.`;
+	const description = `The dashboard does not predict where ${asset.displayName} is going. It compares the recent hours of trading against similar moments in ${asset.displayName}'s history and shows what tended to follow them.`;
 
 	const tableauSlides = [
 		{
 			title: `${asset.displayName}'s price since 2014`,
 			caption:
-				"What this tells you: The long arc Bitcoin has lived through, with every boom and crash visible.",
-			description: `Every point on this orange shape is one day of ${asset.displayName} trading since September 17, 2014. The vertical axis is spaced so the early years (when ${asset.displayName} was around $300) and the recent years (above $100,000) are both clearly readable. On a regular axis the early years would compress into a flat line at the bottom. Drag the slider on the right side to zoom into any specific period, like the 2021 peak, the 2022 crash, or the 2024 ETF rally. ${asset.displayName} has gone through multiple boom and crash cycles, and seeing that full history gives you a feel for the kinds of past moments the pattern recognition below is comparing today's market to.`,
+				"What this tells you: Every boom and crash in Bitcoin's history at a single glance.",
+			description: `This chart shows daily closing prices for ${asset.displayName} from September 17, 2014 to today. The y-axis is logarithmic: each gridline is a 10x step, so $300 in 2014 and $100,000+ today are both legible. Drag the slider on the right to zoom into any period, like the 2021 peak, the 2022 crash, or the 2024 ETF rally.`,
 			workbookUrl: asset.tableauWorkbookUrls?.long,
 		},
 		{
 			title: `A normal day in ${asset.displayName}`,
 			caption:
-				"What this tells you: How big a normal Bitcoin day actually is, so you can tell when today is unusual.",
-			description: `Each bar in this chart represents a 1% slice of how much ${asset.displayName} moved on a given day. The horizontal axis is the size of the daily move, from steep drops on the left to big jumps on the right. The vertical axis counts how many days in ${asset.displayName}'s history fell into each slice. The tallest bars sit close to 0%, which tells you most ${asset.displayName} days are actually small moves, while rare extreme days like the lonely bar near -40% (the March 2020 COVID crash) sit alone in the tails. Drag the slider on the right to compare different eras, since a normal day in 2024 may look very different from a normal day in 2018. Calibrating what counts as a normal ${asset.displayName} day helps you read the recent ones with the right expectations before the pattern recognition tries to match today against history.`,
+				"What this tells you: How big a typical Bitcoin day is, and how rare the extreme ones are.",
+			description: `Each bar groups ${asset.displayName} days by daily percent change. The x-axis is the size of the daily move, from drops on the left to gains on the right. The y-axis counts how many days fell into each bin. Most days cluster near 0 percent, while extreme days like the -40 percent bar from the March 2020 COVID crash sit alone in the tails. Drag the slider on the right to compare different eras, since a normal day in 2024 looks different from a normal day in 2018.`,
 			workbookUrl: asset.tableauWorkbookUrls?.histogram,
 		},
 		{
 			title: "Where the market is right now",
 			caption:
-				"What this tells you: Where Bitcoin is sitting right now, the same window the pattern recognition is comparing against history.",
-			description: `This chart zooms into the last 90 days of ${asset.displayName}'s daily closing price, so you can see exactly where the market is sitting heading into today. The horizontal axis is the calendar; the vertical axis is the price in US dollars, trimmed so the recent waves are visible rather than flattened against zero. The long-history chart above gave you the multi-year arc, and the histogram showed you what a normal ${asset.displayName} day looks like. This view zooms in on the moment that everyone is actually watching right now. The pattern recognition section below takes the most recent 24 hours, 72 hours, or week from this same data and asks one question: when has ${asset.displayName} looked like this before, and what tended to happen next?`,
+				"What this tells you: The recent 90 days of Bitcoin, the same window the pattern recognition compares against history.",
+			description: `The last 90 days of ${asset.displayName}'s daily closing price. The x-axis is the calendar; the y-axis is price in US dollars, trimmed so recent moves are visible. The pattern recognition section below takes the most recent 24 hours, 72 hours, or 7 days from this same data and asks one question: when has ${asset.displayName} looked like this before, and what tended to follow?`,
 			workbookUrl: asset.tableauWorkbookUrls?.zoom,
 		},
 	];

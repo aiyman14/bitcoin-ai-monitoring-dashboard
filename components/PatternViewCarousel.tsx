@@ -100,11 +100,11 @@ export function PatternViewCarousel({
 
 			{isOverlay ? (
 				<p className="mt-4 max-w-[80ch] text-[15px] leading-[1.65] text-text-2">
-					Each line shows the percentage move from the start of its window,
-					not the dollar price. Aligning them all at 0% strips out the
-					difference between, say, {asset.displayName} around $30,000 and{" "}
-					{asset.displayName} around $90,000, so you can compare how the
-					shapes moved rather than how much money was involved.
+					Each line shows the percent move from the start of its window, not
+					the dollar price. Aligning the starts at 0 percent removes the
+					difference between {asset.displayName} at $30,000 and{" "}
+					{asset.displayName} at $90,000, so the shapes can be compared
+					directly rather than the price levels.
 				</p>
 			) : null}
 

@@ -43,8 +43,9 @@ export function PatternDashboard({
 
 			<footer className="mt-3 flex flex-col gap-[14px] font-mono text-[11px] leading-[1.6] text-text-3">
 				<p className="m-0 border-t border-border pt-[14px]">
-					{asset.displayName} data: Yahoo Finance daily candles since 2014,
-					Bitstamp hourly candles since 2018. Refreshed every 12 hours.
+					{asset.displayName} data from Yahoo Finance: daily candles since
+					September 17, 2014, hourly candles updated continuously with Binance
+					as a fallback source. Refreshed every 12 hours.
 				</p>
 				<p className="m-0 border-t border-border pt-[14px]">
 					Last refreshed: {refreshedAt}
