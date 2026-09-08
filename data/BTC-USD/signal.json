@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-05-14T23:00:00Z",
+  "as_of": "2026-09-08T11:00:00Z",
   "asset": "BTC-USD",
   "asset_config": {
     "accent_color": "#f7931a",
@@ -7,17 +7,11 @@
     "display_name": "Bitcoin",
     "enabled": true,
     "id": "BTC-USD",
-    "tableau_workbook_url": "",
+    "tableau_workbook_url": "https://public.tableau.com/views/BitcoinPriceSince2014/BTCPriceSince2014",
     "yahoo_symbol": "BTC-USD"
   },
   "direction": "unavailable",
   "model": "stub",
   "probability_up": null,
-  "regime": {
-    "label": "high-volatility, upward-tilted",
-    "trend_label": "above its 24h average",
-    "volatility_percentile": 0.9102298834172862,
-    "window_hours": 24
-  },
   "test_f1": null
 }

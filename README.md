@@ -40,7 +40,7 @@ Important caveats. Past similarity does not imply future repetition. The 10th to
 
 ## Data source
 
-All Bitcoin price data comes from Yahoo Finance, with Binance used as a fallback when Yahoo is rate-limited or unreachable.
+All Bitcoin price data comes from Binance, read through its public market data mirror at data-api.binance.vision (the main Binance API host geo-blocks US IP addresses, including GitHub Actions runners). Yahoo Finance is the fallback when every Binance host is unreachable.
 
 - Daily candles: September 17, 2014 to today.
 - Hourly candles: a rolling recent window, refreshed continuously.
