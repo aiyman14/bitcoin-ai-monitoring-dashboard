@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-09-22T02:00:00Z",
+  "as_of": "2026-09-22T16:00:00Z",
   "asset": "BTC-USD",
   "asset_config": {
     "accent_color": "#f7931a",
@@ -16,47 +16,47 @@
       "t": 0
     },
     {
-      "pct_change_from_start": 0.0003980089775463824,
+      "pct_change_from_start": -0.00015644509895329506,
       "t": 1
     },
     {
-      "pct_change_from_start": -0.0006620681500764114,
+      "pct_change_from_start": -0.0006249606984383149,
       "t": 2
     },
     {
-      "pct_change_from_start": 0.0014435389934166487,
+      "pct_change_from_start": 0.009677113007110272,
       "t": 3
     },
     {
-      "pct_change_from_start": 0.006545036519651104,
+      "pct_change_from_start": 0.010030988073754576,
       "t": 4
     },
     {
-      "pct_change_from_start": 0.01249852928700168,
+      "pct_change_from_start": 0.005932618299603343,
       "t": 5
     },
     {
-      "pct_change_from_start": 0.007687624865133635,
+      "pct_change_from_start": 0.00690009540106451,
       "t": 6
     },
     {
-      "pct_change_from_start": 0.0061217737561025665,
+      "pct_change_from_start": 0.007337930898808631,
       "t": 7
     },
     {
-      "pct_change_from_start": 0.008056655996069084,
+      "pct_change_from_start": 0.011108538822682812,
       "t": 8
     },
     {
-      "pct_change_from_start": -0.000430594507871751,
+      "pct_change_from_start": 0.010078062122990339,
       "t": 9
     },
     {
-      "pct_change_from_start": -0.003624907494916507,
+      "pct_change_from_start": 0.011894394405822961,
       "t": 10
     },
     {
-      "pct_change_from_start": -0.002486974225194727,
+      "pct_change_from_start": 0.012160210554493789,
       "t": 11
     }
   ],
@@ -69,12 +69,12 @@
   "k": 10,
   "matches": [
     {
-      "distance": 0.057685,
+      "distance": 0.053917,
       "forward_returns": {
-        "12h": -0.010070227838630874,
-        "1h": -0.003700076277427744,
-        "24h": -0.010330513601346736,
-        "6h": -0.007467918181499389
+        "12h": -0.013098106719982572,
+        "1h": -0.010452281404791486,
+        "24h": -0.009089502508125236,
+        "6h": -0.027718026306545962
       },
       "match_series": [
         {
@@ -82,59 +82,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": 0.009419854541216077,
+          "pct_change_from_start": -0.007257725175938479,
           "t": 1
         },
         {
-          "pct_change_from_start": 0.006772083906180004,
+          "pct_change_from_start": -0.009439524686230327,
           "t": 2
         },
         {
-          "pct_change_from_start": 0.010210447185149185,
+          "pct_change_from_start": 0.0015330035250813445,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.01081246314141282,
+          "pct_change_from_start": 0.0018763301731907767,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.014278498995540456,
+          "pct_change_from_start": -0.00714458838441967,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.004757850306395861,
+          "pct_change_from_start": -0.004081627324797887,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.00490757543159126,
+          "pct_change_from_start": -0.0004917099016014115,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.009907514955102448,
+          "pct_change_from_start": 0.0007819492859981736,
           "t": 8
         },
         {
-          "pct_change_from_start": 0.0045020164327447265,
+          "pct_change_from_start": 0.003411074264295433,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.009579292557030161,
+          "pct_change_from_start": 0.005575903255859327,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.0033144781080607366,
+          "pct_change_from_start": 0.00964099520343531,
           "t": 11
         }
       ],
-      "match_start": "2021-10-06T18:00:00Z"
+      "match_start": "2020-12-17T22:00:00Z"
     },
     {
-      "distance": 0.059701,
+      "distance": 0.061659,
       "forward_returns": {
-        "12h": 0.027494840101571105,
-        "1h": 0.020875487384979907,
-        "24h": 0.011262710149292143,
-        "6h": 0.03777186745333183
+        "12h": 0.0019278286843298353,
+        "1h": -0.01690587636877794,
+        "24h": 0.005246065124258514,
+        "6h": -0.006373646586243842
       },
       "match_series": [
         {
@@ -142,59 +142,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": -0.01015656916536345,
+          "pct_change_from_start": 0.0003428011327646363,
           "t": 1
         },
         {
-          "pct_change_from_start": 0.009938555711746844,
+          "pct_change_from_start": -0.008664309492506517,
           "t": 2
         },
         {
-          "pct_change_from_start": 0.015054835687784873,
+          "pct_change_from_start": -0.005606036775740231,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.01608320103503358,
+          "pct_change_from_start": -0.002021614284857698,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.04352020499759579,
+          "pct_change_from_start": -0.00074990463263791,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.030432686343589754,
+          "pct_change_from_start": 0.001875196057048445,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.022008533916896278,
+          "pct_change_from_start": 0.0040367114379138425,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.006528279722302299,
+          "pct_change_from_start": 0.008095581123953366,
           "t": 8
         },
         {
-          "pct_change_from_start": -0.011117170648677677,
+          "pct_change_from_start": -0.002441317572881019,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.005693030562368584,
+          "pct_change_from_start": -0.006942048795069211,
           "t": 10
         },
         {
-          "pct_change_from_start": -0.017977774751617326,
+          "pct_change_from_start": -0.00318687745098456,
           "t": 11
         }
       ],
-      "match_start": "2021-02-09T01:00:00Z"
+      "match_start": "2020-12-18T01:00:00Z"
     },
     {
-      "distance": 0.060967,
+      "distance": 0.06238,
       "forward_returns": {
-        "12h": 0.001128673273951053,
-        "1h": -0.02353680953794568,
-        "24h": 0.004707577180004474,
-        "6h": 0.002363260576280002
+        "12h": -0.0038616214240014823,
+        "1h": 0.0014623891783200893,
+        "24h": -0.01201901105931813,
+        "6h": 0.004638515674983967
       },
       "match_series": [
         {
@@ -202,59 +202,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": -0.013148319781426165,
+          "pct_change_from_start": 0.005606837606837667,
           "t": 1
         },
         {
-          "pct_change_from_start": -0.023171347127521225,
+          "pct_change_from_start": -0.0007749287749287959,
           "t": 2
         },
         {
-          "pct_change_from_start": -0.00334043937834283,
+          "pct_change_from_start": 0.0038062678062678046,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.0017085701124788244,
+          "pct_change_from_start": 0.005356125356125396,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.0027234141832899184,
+          "pct_change_from_start": 0.004056980056980075,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.029799667643908068,
+          "pct_change_from_start": -0.0015498575498575917,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.016884227870310076,
+          "pct_change_from_start": -0.0006609686609686527,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.008570838893610544,
+          "pct_change_from_start": 0.0020968660968661013,
           "t": 8
         },
         {
-          "pct_change_from_start": -0.006705875968535224,
+          "pct_change_from_start": 0.0014358974358974486,
           "t": 9
         },
         {
-          "pct_change_from_start": -0.024119318315350413,
+          "pct_change_from_start": 0.002666666666666595,
           "t": 10
         },
         {
-          "pct_change_from_start": -0.007530143005416989,
+          "pct_change_from_start": -0.0025299145299145787,
           "t": 11
         }
       ],
-      "match_start": "2021-02-09T00:00:00Z"
+      "match_start": "2023-12-06T09:00:00Z"
     },
     {
-      "distance": 0.061375,
+      "distance": 0.06416,
       "forward_returns": {
-        "12h": -0.023985711854948244,
-        "1h": -0.008338717565208653,
-        "24h": -0.02187247521171032,
-        "6h": -0.0076366851217907206
+        "12h": 0.05423542616960808,
+        "1h": -0.0009552695054092508,
+        "24h": 0.05179948893081465,
+        "6h": 0.043536407709025005
       },
       "match_series": [
         {
@@ -262,59 +262,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": 0.0019898378759397595,
+          "pct_change_from_start": -0.0016982801923123292,
           "t": 1
         },
         {
-          "pct_change_from_start": 0.0013547051221804995,
+          "pct_change_from_start": 0.0006458248618652629,
           "t": 2
         },
         {
-          "pct_change_from_start": 0.007391525689222966,
+          "pct_change_from_start": -0.0005501471045519235,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.010067894345238138,
+          "pct_change_from_start": 0.0025593800081327167,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.011612282659774431,
+          "pct_change_from_start": -0.002057071782237463,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.005696614583333259,
+          "pct_change_from_start": -0.00672136245126409,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.009610207158521122,
+          "pct_change_from_start": -0.004496854593728283,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.018169202302631415,
+          "pct_change_from_start": -0.002224507857535807,
           "t": 8
         },
         {
-          "pct_change_from_start": 0.02842922736528819,
+          "pct_change_from_start": -0.004377257397086609,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.029810855263157965,
+          "pct_change_from_start": -0.0018417968282823383,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.028470835291353414,
+          "pct_change_from_start": 0.001578682995670544,
           "t": 11
         }
       ],
-      "match_start": "2018-07-24T14:00:00Z"
+      "match_start": "2023-12-05T01:00:00Z"
     },
     {
-      "distance": 0.063092,
+      "distance": 0.06495,
       "forward_returns": {
-        "12h": -0.007901668129938533,
-        "1h": -0.0038935756002596023,
-        "24h": -0.0011069969843875427,
-        "6h": -0.003149215559033469
+        "12h": -0.014759138487477008,
+        "1h": -0.009160502331462816,
+        "24h": -0.04889156000108952,
+        "6h": -0.022684274889825384
       },
       "match_series": [
         {
@@ -322,59 +322,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": 0.0013946731234866228,
+          "pct_change_from_start": 0.01699918404091738,
           "t": 1
         },
         {
-          "pct_change_from_start": -0.0029055690072639084,
+          "pct_change_from_start": -0.0069377320540997545,
           "t": 2
         },
         {
-          "pct_change_from_start": 0.0017433414043583895,
+          "pct_change_from_start": 0.013792926792904225,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.0021501210653753766,
+          "pct_change_from_start": 0.021650610568147988,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.0026731234866828046,
+          "pct_change_from_start": 0.025031575449067756,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.004222760290556904,
+          "pct_change_from_start": 0.018651243938050177,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.004242130750605311,
+          "pct_change_from_start": 0.01940261811867039,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.014508474576271135,
+          "pct_change_from_start": 0.030572084303657654,
           "t": 8
         },
         {
-          "pct_change_from_start": 0.0063728813559322806,
+          "pct_change_from_start": 0.03186859884259485,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.008987893462469643,
+          "pct_change_from_start": 0.032605085655999844,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.014895883777239716,
+          "pct_change_from_start": 0.03673851937689365,
           "t": 11
         }
       ],
-      "match_start": "2024-02-14T16:00:00Z"
+      "match_start": "2021-02-09T10:00:00Z"
     },
     {
-      "distance": 0.064805,
+      "distance": 0.064966,
       "forward_returns": {
-        "12h": -0.003965450436058893,
-        "1h": 0.0084118010565577,
-        "24h": -0.0058648638864355895,
-        "6h": 0.01887145911154864
+        "12h": 0.008041468700188625,
+        "1h": 0.0032160757735084644,
+        "24h": -0.0031751392481494944,
+        "6h": 0.0014071930592121085
       },
       "match_series": [
         {
@@ -382,59 +382,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": -0.003535210861061233,
+          "pct_change_from_start": -0.0002239457176173021,
           "t": 1
         },
         {
-          "pct_change_from_start": -0.0003004763615009898,
+          "pct_change_from_start": -0.00029087202403177415,
           "t": 2
         },
         {
-          "pct_change_from_start": -0.011843185093596387,
+          "pct_change_from_start": 0.0020695673214290444,
           "t": 3
         },
         {
-          "pct_change_from_start": -0.005596904572966355,
+          "pct_change_from_start": 0.008152138939012232,
           "t": 4
         },
         {
-          "pct_change_from_start": -0.0030811051157796365,
+          "pct_change_from_start": 0.007166262963754333,
           "t": 5
         },
         {
-          "pct_change_from_start": -0.0039533540811866885,
+          "pct_change_from_start": 0.013668411040781203,
           "t": 6
         },
         {
-          "pct_change_from_start": -0.0017880315138977254,
+          "pct_change_from_start": 0.010975914251956986,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.0026049171182094266,
+          "pct_change_from_start": 0.016538519950474617,
           "t": 8
         },
         {
-          "pct_change_from_start": -0.0008061599389141971,
+          "pct_change_from_start": 0.008044027213265803,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.0015383443326608681,
+          "pct_change_from_start": 0.009403146051219169,
           "t": 10
         },
         {
-          "pct_change_from_start": -0.0022549134194320697,
+          "pct_change_from_start": 0.006079997528874781,
           "t": 11
         }
       ],
-      "match_start": "2021-04-13T15:00:00Z"
+      "match_start": "2019-02-20T04:00:00Z"
     },
     {
-      "distance": 0.065055,
+      "distance": 0.065554,
       "forward_returns": {
-        "12h": -0.0277799599589591,
-        "1h": 0.0030923491140741888,
-        "24h": -0.021458379456708143,
-        "6h": -0.0207596847184629
+        "12h": -0.015808360003879307,
+        "1h": 0.0051886334982058635,
+        "24h": -0.021481912520609048,
+        "6h": -0.00189118417224321
       },
       "match_series": [
         {
@@ -442,59 +442,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": 0.0026567313579335394,
+          "pct_change_from_start": -0.0014932562620424417,
           "t": 1
         },
         {
-          "pct_change_from_start": 0.004189788044587361,
+          "pct_change_from_start": -0.0031791907514451268,
           "t": 2
         },
         {
-          "pct_change_from_start": -0.0016824750483483975,
+          "pct_change_from_start": -0.0002408477842004153,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.0022024023557078998,
+          "pct_change_from_start": 0.002408477842003931,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.010698597654010156,
+          "pct_change_from_start": 0.002360308285163759,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.020883341917802944,
+          "pct_change_from_start": -0.0015895953757225634,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.022254832408478364,
+          "pct_change_from_start": -0.0026493256262042353,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.020924644554368932,
+          "pct_change_from_start": -0.002023121387283222,
           "t": 8
         },
         {
-          "pct_change_from_start": 0.012411442288068786,
+          "pct_change_from_start": -0.006551059730250497,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.0162926753418402,
+          "pct_change_from_start": -0.009971098265895928,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.02058571997784231,
+          "pct_change_from_start": -0.006647398843930619,
           "t": 11
         }
       ],
-      "match_start": "2018-07-24T17:00:00Z"
+      "match_start": "2022-10-27T00:00:00Z"
     },
     {
-      "distance": 0.065326,
+      "distance": 0.065953,
       "forward_returns": {
-        "12h": 0.0037266969879583556,
-        "1h": 0.007765758246204291,
-        "24h": -0.022636847424291062,
-        "6h": 0.027849718362174203
+        "12h": -0.010860637035684961,
+        "1h": -0.0011180067536734617,
+        "24h": -0.01010769371178244,
+        "6h": 0.0024641781509537886
       },
       "match_series": [
         {
@@ -502,59 +502,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": -0.004151881068477414,
+          "pct_change_from_start": -0.006346184356655571,
           "t": 1
         },
         {
-          "pct_change_from_start": -0.019735263332567365,
+          "pct_change_from_start": -0.001790530586342154,
           "t": 2
         },
         {
-          "pct_change_from_start": -0.010085267161930922,
+          "pct_change_from_start": -0.00024931438544006923,
           "t": 3
         },
         {
-          "pct_change_from_start": -0.0052164441380953,
+          "pct_change_from_start": -0.0015412162009020847,
           "t": 4
         },
         {
-          "pct_change_from_start": -0.0025158918587729895,
+          "pct_change_from_start": -0.007116792457106613,
           "t": 5
         },
         {
-          "pct_change_from_start": -0.004365474458144947,
+          "pct_change_from_start": -0.006232859636000954,
           "t": 6
         },
         {
-          "pct_change_from_start": -0.000264226085624486,
+          "pct_change_from_start": -0.003490401396160525,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.012513509143669221,
+          "pct_change_from_start": -0.004147684775957061,
           "t": 8
         },
         {
-          "pct_change_from_start": -0.0044820573042982925,
+          "pct_change_from_start": -0.0029237777928877717,
           "t": 9
         },
         {
-          "pct_change_from_start": -0.005626186038991454,
+          "pct_change_from_start": -0.008091385054735833,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.0011751891280114002,
+          "pct_change_from_start": -0.0066408286303574204,
           "t": 11
         }
       ],
-      "match_start": "2022-07-19T22:00:00Z"
+      "match_start": "2023-12-06T10:00:00Z"
     },
     {
-      "distance": 0.066514,
+      "distance": 0.066107,
       "forward_returns": {
-        "12h": 0.07063933704862468,
-        "1h": 0.004801157792741373,
-        "24h": 0.07958476651647528,
-        "6h": 0.03233217137600164
+        "12h": -0.0023051230182998816,
+        "1h": -0.0010349531918897314,
+        "24h": 0.0002822599614245025,
+        "6h": 0.004422072728983428
       },
       "match_series": [
         {
@@ -562,59 +562,59 @@
           "t": 0
         },
         {
-          "pct_change_from_start": 0.00034715719686606583,
+          "pct_change_from_start": 0.002470308788598663,
           "t": 1
         },
         {
-          "pct_change_from_start": -0.0032683105262039103,
+          "pct_change_from_start": 0.0036104513064132426,
           "t": 2
         },
         {
-          "pct_change_from_start": -0.0013933557977545696,
+          "pct_change_from_start": 0.005225653206650804,
           "t": 3
         },
         {
-          "pct_change_from_start": 0.007559879750419274,
+          "pct_change_from_start": 0.004608076009501083,
           "t": 4
         },
         {
-          "pct_change_from_start": 0.012652816248458265,
+          "pct_change_from_start": 0.0010451306413301609,
           "t": 5
         },
         {
-          "pct_change_from_start": 0.011267385144424713,
+          "pct_change_from_start": 0.004133016627078323,
           "t": 6
         },
         {
-          "pct_change_from_start": 0.007011129467667576,
+          "pct_change_from_start": 0.007410926365795767,
           "t": 7
         },
         {
-          "pct_change_from_start": 0.010617560259301273,
+          "pct_change_from_start": 0.006033254156769585,
           "t": 8
         },
         {
-          "pct_change_from_start": 0.010353264772219983,
+          "pct_change_from_start": 0.004085510688836003,
           "t": 9
         },
         {
-          "pct_change_from_start": 0.01132730695133266,
+          "pct_change_from_start": 0.008361045130641287,
           "t": 10
         },
         {
-          "pct_change_from_start": 0.010415411054558454,
+          "pct_change_from_start": 0.00983372921615211,
           "t": 11
         }
       ],
-      "match_start": "2026-08-20T11:00:00Z"
+      "match_start": "2023-01-17T01:00:00Z"
     },
     {
-      "distance": 0.066896,
+      "distance": 0.067084,
       "forward_returns": {
-        "12h": -0.016533043256382496,
-        "1h": -0.003145186199857708,
-        "24h": 0.00030887823482816934,
-        "6h": -0.014788552704027458
+        "12h": 0.049076088255683326,
+        "1h": 0.009083737719025597,
+        "24h": 0.0544307125953194,
+        "6h": 0.046996390409485445
       },
       "match_series": [
         {
@@ -622,82 +622,82 @@
           "t": 0
         },
         {
-          "pct_change_from_start": -0.00342426265730289,
+          "pct_change_from_start": 0.002348092773624799,
           "t": 1
         },
         {
-          "pct_change_from_start": 9.251140303589978e-05,
+          "pct_change_from_start": 0.0011500862564692849,
           "t": 2
         },
         {
-          "pct_change_from_start": 0.0008473508220105952,
+          "pct_change_from_start": 0.004264903201073311,
           "t": 3
         },
         {
-          "pct_change_from_start": -0.003362588388612253,
+          "pct_change_from_start": -0.0003594019551466099,
           "t": 4
         },
         {
-          "pct_change_from_start": -0.012932825995436104,
+          "pct_change_from_start": -0.0050316273720528715,
           "t": 5
         },
         {
-          "pct_change_from_start": -0.008434626615932861,
+          "pct_change_from_start": -0.002803335250143757,
           "t": 6
         },
         {
-          "pct_change_from_start": -0.008169159111568791,
+          "pct_change_from_start": -0.000527122867548413,
           "t": 7
         },
         {
-          "pct_change_from_start": -0.006420827668685902,
+          "pct_change_from_start": -0.0026835345984281833,
           "t": 8
         },
         {
-          "pct_change_from_start": -0.003826486148763686,
+          "pct_change_from_start": -0.00014376078205868836,
           "t": 9
         },
         {
-          "pct_change_from_start": -0.0012214186690692186,
+          "pct_change_from_start": 0.0032825378570060515,
           "t": 10
         },
         {
-          "pct_change_from_start": -0.001641071845160047,
+          "pct_change_from_start": 0.0023241326432816845,
           "t": 11
         }
       ],
-      "match_start": "2018-07-18T03:00:00Z"
+      "match_start": "2023-12-05T02:00:00Z"
     }
   ],
   "source_interval_hours": 1,
   "summary": {
     "horizon_12h": {
-      "mean": 0.0012753485937187059,
-      "median": -0.005933559282998713,
+      "mean": 0.005258782512048465,
+      "median": -0.003083372221150682,
       "n_positive": 4,
-      "p10": -0.02436513666534933,
-      "p90": 0.031809289796276445
+      "p10": -0.014864060639117238,
+      "p90": 0.0495920220470758
     },
     "horizon_1h": {
-      "mean": 0.00023321884138580718,
-      "median": -2.64185428917596e-05,
-      "n_positive": 5,
-      "p10": -0.009858526762482356,
-      "p90": 0.009658169689399917
+      "mean": -0.002067605338694467,
+      "median": -0.0009951113486494911,
+      "n_positive": 4,
+      "p10": -0.011097640901190132,
+      "p90": 0.005578143920287835
     },
     "horizon_24h": {
-      "mean": 0.0012593855515720676,
-      "median": -0.003485930435411566,
+      "mean": 0.0006993707562743201,
+      "median": -0.006132320878137365,
       "n_positive": 4,
-      "p10": -0.02194891243296839,
-      "p90": 0.018094915786010433
+      "p10": -0.024222877268657093,
+      "p90": 0.052062611297265124
     },
     "horizon_6h": {
-      "mean": 0.006538642059452237,
-      "median": -0.00039297749137673366,
-      "n_positive": 5,
-      "p10": -0.015385665905471002,
-      "p90": 0.032876140983734654
+      "mean": 0.004479762577778534,
+      "median": 0.0019356856050829485,
+      "n_positive": 6,
+      "p10": -0.02318765003149744,
+      "p90": 0.043882405979071046
     }
   },
   "window_hours": 12,
