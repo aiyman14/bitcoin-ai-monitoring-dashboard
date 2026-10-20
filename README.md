@@ -25,15 +25,6 @@ A walk-forward test over 2,338 days found that the matches did no better than te
 
 Hourly candles from Binance's public market data, with Yahoo Finance as a fallback, backfilled to May 2018. A GitHub Actions job refreshes the data and recomputes every match at 00:00 and 12:00 UTC.
 
-## Run it locally
-
-Node.js 20+ and pnpm for the site; Python 3.11 only if you want to refresh the data.
-
-    pnpm install
-    pnpm dev
-
-The site runs at http://localhost:3000. The data pipeline lives in `ml/`. `FEATURES.md` has the file-by-file breakdown.
-
 ## Stack
 
 Next.js, React 19, TypeScript, Tailwind, Tableau embeds, Python (pandas, NumPy), GitHub Actions, Cloudflare Pages.
